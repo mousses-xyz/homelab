@@ -1,0 +1,8 @@
+---
+  - name: update_vim
+    hosts: local
+    tasks:
+      - name: grab latest vim release
+        brew:
+          name: vim
+          state: latest

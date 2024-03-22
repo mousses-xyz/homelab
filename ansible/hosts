@@ -1,2 +1,4 @@
-[home]
+[lab]
 homelab ansible_host=184.176.133.38 ansible_user=mechanical_turk ansible_connection=ssh ansible_ssh_private_key_file=/Users/petermousses/.ssh/homelab
+
+[local]
