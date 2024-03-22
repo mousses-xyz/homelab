@@ -61,3 +61,4 @@ qemu-system-x86_64 \
     -display default,show-cursor=on
 
 enter_key="0x1c"
+#TODO: set up ssh into vm then simply execute all commands
