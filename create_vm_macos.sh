@@ -31,13 +31,13 @@ display_progress () {
 # brew install qemu
 
 ## Choose name for VM
-printf "Enter name for VM [ENTER for vm]:"
-read input
+# printf "Enter name for VM [ENTER for vm]:"
+# read input
 vm_name="${input:-"vm"}"
 
 ## Create Image
-printf "Enter disk size in GB [ENTER for 8]:"
-read input
+# printf "Enter disk size in GB [ENTER for 8]:"
+# read input
 disk_size="${input:-8}"
 
 # Creation of disk file
@@ -49,16 +49,30 @@ qemu-img create -f $format $vm_name.$format $disk_size
 # read iso_path
 iso_path=/Users/petermousses/Downloads/archlinux-2024.03.01-x86_64.iso
 qemu-system-x86_64 \
+	$vm_name.$format \
     -machine type=q35 \
     -smp 2 \
-    -hda $vm_name.$format \
     -cdrom $iso_path \
     -m 2G \
     -vga virtio \
     -usb \
     -device usb-tablet \
 	-monitor stdio \
-    -display default,show-cursor=on
+    -display default
 
+# Set up basic SSH on VM
 enter_key="0x1c"
-#TODO: set up ssh into vm then simply execute all commands
+printf "Wait for VM to reach bootloader then press [ENTER]"
+echo "$enter_key"
+
+# Gather remote commands
+file_name="setup_ssh_in_arch_vm.sh"
+lines=()
+while IFS= read -r line; do
+    lines+=("$line")
+done < "$file_name"
+
+# Execute remote commands
+for line in "${lines[@]}"; do
+    eval $(echo "$line")
+done
