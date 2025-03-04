@@ -1,0 +1,24 @@
+---
+- name: Set up NTP on darwin
+  hosts: darwin
+  become: yes
+  tasks:
+    - name: Ensure NTP is Installed
+      command: brew install ntp
+      args:
+        creates: /usr/local/bin/ntp
+    - name: Ensure NTP is Running
+      command: brew services start ntp
+- name: Set up NTP on debian
+  hosts: debian pies
+  become: yes
+  tasks:
+    - name: Install NTP
+      apt:
+        name: ntp
+        state: present
+    - name: Ensure NTP daemon is running and enabled
+      service:
+        name: ntpd
+        state: started
+        enabled: yes
