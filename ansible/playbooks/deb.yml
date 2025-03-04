@@ -1,0 +1,18 @@
+---
+- name: Install packages for debian. Grabs latest versions and ensures they are installed.
+  hosts: debian
+  become: true
+  tasks:
+    - name: Vim
+      apt:
+        name: vim
+        state: latest
+    - name: Git
+      apt:
+        name: git
+        state: latest
+    - name: Neofetch
+      apt:
+        name: neofetch
+        state: latest
+    
