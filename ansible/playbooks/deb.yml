@@ -15,4 +15,7 @@
       apt:
         name: neofetch
         state: latest
-    
+    - name: NTP
+      apt:
+        name: ntp
+        state: latest
