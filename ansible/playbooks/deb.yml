@@ -3,19 +3,12 @@
   hosts: debian
   become: true
   tasks:
-    - name: Vim
+    - name: Install deb packages
       apt:
-        name: vim
+        name: "{{ item }}"
         state: latest
-    - name: Git
-      apt:
-        name: git
-        state: latest
-    - name: Neofetch
-      apt:
-        name: neofetch
-        state: latest
-    - name: NTP
-      apt:
-        name: ntp
-        state: latest
+      with_items:
+        - vim
+        - git
+        - neofetch
+        - ntp
