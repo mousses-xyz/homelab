@@ -1,0 +1,40 @@
+---
+- name: Install packages for darwin homebrew
+  hosts: darwin
+  tasks:
+    - name: Install Brew Packages
+      homebrew:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        # Terminal setup
+        - zsh
+        - vim
+        - neovim
+        - tmux
+        # Development tools
+        - coreutils
+        - git
+        - openssh
+        - libmamba
+        - android-platform-tools 
+        - gradle 
+        - jdk 
+        - nodejs_22 
+        - pkg-config
+        - rustup 
+        - qemu
+        - docker
+        - docker-compose
+        - kubectl
+        # Utilities
+        - htop
+        - ntp
+        - tree 
+        - ffmpeg
+        - wget
+        - curl
+        # Other
+        - yt-dlp
+        - neofetch
+        - cmatrix
