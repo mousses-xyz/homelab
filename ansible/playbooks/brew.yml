@@ -1,8 +1,14 @@
 ---
-- name: Install packages for darwin homebrew
+- name: Handle packages for darwin
   hosts: darwin
   tasks:
-    - name: Install Brew Packages
+    - name: Install Homebrew
+      homebrew:
+        state: latest
+    - name: Update Homebrew
+      homebrew:
+        update_homebrew: true
+    - name: Install these latest formulae
       homebrew:
         name: "{{ item }}"
         state: latest
@@ -16,11 +22,11 @@
         - coreutils
         - git
         - openssh
-        - libmamba
+        - anaconda
         - android-platform-tools 
         - gradle 
-        - jdk 
-        - nodejs_22 
+        - openjdk
+        - node
         - pkg-config
         - rustup 
         - qemu
@@ -38,3 +44,44 @@
         - yt-dlp
         - neofetch
         - cmatrix
+    - name: Update all other outdated formulae
+      homebrew:
+        state: latest
+        upgrade_all: yes
+    - name: Install these latest casks
+      homebrew_cask:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - brave-browser
+        - tailscale
+        - zoom
+    - name: Force install these latest casks
+      homebrew_cask:
+        name: "{{ item }}"
+        state: latest
+        install_options: force
+      with_items:
+        - aldente
+        - balenaetcher
+        - bitwarden
+        - font-monocraft
+        - google-chrome
+        - signal
+        - spotify
+        # - avibrazil-rdm
+        - the-unarchiver
+        - unnaturalscrollwheels
+        - utm
+        - visual-studio-code
+    # - name: Force install these latest casks without quarantine
+    #   homebrew_cask:
+    #     name: "{{ item }}"
+    #     state: latest
+    #     install_options: force no-quarantine
+    #   with_items:
+    #     - librewolf
+    - name: Update all other outdated casks
+      homebrew_cask:
+        state: latest
+        upgrade_all: yes
