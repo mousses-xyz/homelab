@@ -33,6 +33,7 @@
         - pkg-config
         - rustup 
         - go
+        # - firebase-cli
         # Utilities
         - htop
         - ntp
@@ -56,8 +57,10 @@
         - google-chrome
         - libreoffice
         - localsend
+        # - minecraft
         - signal
         - spotify
+        # - steam
         - the-unarchiver
         - unnaturalscrollwheels
         - visual-studio-code
