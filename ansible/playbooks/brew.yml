@@ -8,31 +8,31 @@
     - name: Update Homebrew
       homebrew:
         update_homebrew: true
-    - name: Install these latest formulae
+    - name: Install these latest formulae/casks
       homebrew:
         name: "{{ item }}"
         state: latest
       with_items:
-        # Terminal setup
-        - zsh
-        - vim
-        - neovim
-        - tmux
-        # Development tools
+        # Containers/Virtualization
+        - docker
+        - docker-compose
+        - kubectl
+        - qemu
+        - utm
+        # App Development
+        - android-platform-tools
+        - android-studio
+        - flutter
+        - gradle 
+        - openjdk
+        # Other Development tools
         - coreutils
         - git
         - openssh
         - anaconda
-        - android-platform-tools 
-        - gradle 
-        - openjdk
-        - node
         - pkg-config
         - rustup 
-        - qemu
-        - docker
-        - docker-compose
-        - kubectl
+        - go
         # Utilities
         - htop
         - ntp
@@ -40,11 +40,29 @@
         - ffmpeg
         - wget
         - curl
-        # Other
         - yt-dlp
         - neofetch
+        - zsh
+        - vim
+        - neovim
+        - tmux
+        # Other GUI Apps
+        - aldente
+        - balenaetcher
+        - bitwarden
+        - brave-browser
         - cmatrix
-    - name: Update all other outdated formulae
+        - font-monocraft
+        - google-chrome
+        - libreoffice
+        - localsend
+        - signal
+        - spotify
+        - the-unarchiver
+        - unnaturalscrollwheels
+        - visual-studio-code
+        - zoom
+    - name: Update all other outdated formulae/casks
       homebrew:
         state: latest
         upgrade_all: yes
@@ -53,34 +71,8 @@
         name: "{{ item }}"
         state: latest
       with_items:
-        - brave-browser
         - tailscale
-        - zoom
-    - name: Force install these latest casks
-      homebrew_cask:
-        name: "{{ item }}"
-        state: latest
-        install_options: force
-      with_items:
-        - aldente
-        - balenaetcher
-        - bitwarden
-        - font-monocraft
-        - google-chrome
-        - signal
-        - spotify
         # - avibrazil-rdm
-        - the-unarchiver
-        - unnaturalscrollwheels
-        - utm
-        - visual-studio-code
-    # - name: Force install these latest casks without quarantine
-    #   homebrew_cask:
-    #     name: "{{ item }}"
-    #     state: latest
-    #     install_options: force no-quarantine
-    #   with_items:
-    #     - librewolf
     - name: Update all other outdated casks
       homebrew_cask:
         state: latest
