@@ -19,51 +19,65 @@
         - kubectl
         - qemu
         - utm
+
         # App Development
         - android-platform-tools
         - android-studio
         - flutter
         - gradle 
         - openjdk
+
         # Other Development tools
+        # - anaconda
         - coreutils
-        - git
-        - openssh
-        - anaconda
-        - pkg-config
-        - rustup 
-        - go
         # - firebase-cli
+        - git
+        - go
+        - openssh
+        - pkg-config
+        - rust-analyzer
+        - rustup
+        - devcleaner
+
         # Utilities
         - htop
         - ntp
         - tree 
         - ffmpeg
-        - wget
-        - curl
-        - yt-dlp
         - neofetch
-        - zsh
-        - vim
         - neovim
+        - vim
         - tmux
+        - wget
+        - yt-dlp
+        - zsh
+
+        # Microsoft Stuff
+        - microsoft-teams
+        - microsoft-outlook
+        - microsoft-word
+        - microsoft-excel
+        - microsoft-powerpoint
+
         # Other GUI Apps
         - aldente
         - balenaetcher
         - bitwarden
         - brave-browser
+        - chatgpt
         - cmatrix
         - font-monocraft
-        - google-chrome
         - libreoffice
         - localsend
         # - minecraft
+        # - openvpn
         - signal
         - spotify
         # - steam
         - the-unarchiver
         - unnaturalscrollwheels
         - visual-studio-code
+        - vlc
         - zoom
     - name: Update all other outdated formulae/casks
       homebrew:
@@ -76,6 +90,7 @@
       with_items:
         - tailscale
         # - avibrazil-rdm
+        # - sensible-side-buttons
     - name: Update all other outdated casks
       homebrew_cask:
         state: latest
