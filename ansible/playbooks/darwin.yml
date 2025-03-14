@@ -1,0 +1,213 @@
+---
+- name: Handle packages for darwin
+  hosts: darwin
+  vars:
+    brew_formulae_and_casks:
+      # Containers/Virtualization
+      - docker
+      - docker-compose
+      - kubectl
+      - qemu
+      - utm
+
+      # App Development
+      - android-platform-tools
+      - android-studio
+      - flutter
+      - gradle 
+      - openjdk
+
+      # Networking
+      - curl
+      - little-snitch
+      - nmap
+      - openssh
+      - openvpn
+      - wireshark
+      - wget
+
+      # Other Development tools
+      # - anaconda
+      - coreutils
+      # - firebase-cli
+      - git
+      - go
+      - pkg-config
+      - rust-analyzer
+      - rustup
+      - devcleaner
+
+      # Utilities
+      - cmatrix
+      - dockutil
+      - htop
+      - ntp
+      - tree 
+      - ffmpeg
+      - neofetch
+      - neovim
+      - vim
+      - tmux
+      - wget
+      - yt-dlp
+      - zsh
+
+      # Microsoft Stuff
+      - microsoft-teams
+      - microsoft-outlook
+      - microsoft-word
+      - microsoft-excel
+      - microsoft-powerpoint
+
+      # Gaming
+      - minecraft
+      - roblox
+      - steam
+
+      # Other GUI Apps
+      - aldente
+      - bitwarden
+      - brave-browser
+      - chatgpt
+      - font-monocraft
+      - libreoffice
+      - localsend
+      - signal
+      - spotify
+      - the-unarchiver
+      - unnaturalscrollwheels
+      - visual-studio-code
+      - vlc
+      - zoom
+    remove_from_dock:
+      - Maps
+      - Photos
+      - FaceTime
+      - iBooks
+      - iTunes
+      - Siri
+    persist_in_dock:
+      # - name: Finder
+      #   path: "/System/Applications/Finder.app"
+      #   pos: 1
+      - name: Activity Monitor
+        path: "/Applications/Utilities/Activity Monitor.app"
+        pos: 2
+      - name: Mission Control
+        path: "/Applications/Mission Control.app"
+        pos: 3
+      - name: Launchpad
+        path: "/Applications/Launchpad.app"
+        pos: 4
+      - name: Brave Browser
+        path: "/Applications/Brave Browser.app"
+        pos: 5
+      - name: Calendar
+        path: "/Applications/Calendar.app"
+        pos: 6
+      - name: Mail
+        path: "/Applications/Mail.app"
+        pos: 7
+      - name: Microsoft Outlook
+        path: "/Applications/Microsoft Outlook.app"
+        pos: 8
+      - name: Microsoft Teams
+        path: "/Applications/Microsoft Teams.app"
+        pos: 9
+      - name: Terminal
+        path: "/Applications/Utilities/Terminal.app"
+        pos: 10
+      - name: Visual Studio Code
+        path: "/Applications/Visual Studio Code.app"
+        pos: 11
+      - name: Android Studio
+        path: "/Applications/Android Studio.app"
+        pos: 12
+      - name: LibreOffice
+        path: "/Applications/LibreOffice.app"
+        pos: 13
+      - name: Reminders
+        path: "/Applications/Reminders.app"
+        pos: 14
+      - name: Notes
+        path: "/Applications/Notes.app"
+        pos: 15
+      - name: Preview
+        path: "/Applications/Preview.app"
+        pos: 16
+      - name: Spotify
+        path: "/Applications/Spotify.app"
+        pos: 17
+      - name: System Settings
+        path: "/Applications/System Settings.app"
+        pos: 18
+  tasks:
+    # Ensure homebrew is installed and updated
+    - name: Install Homebrew
+      homebrew:
+        state: latest
+    - name: Update Homebrew
+      homebrew:
+        update_homebrew: true
+    
+    # Ensure desired formulae/casks are installed and updated
+    - name: Install these latest formulae/casks
+      homebrew:
+        name: "{{ item }}"
+        state: latest
+      with_items: "{{ brew_formulae_and_casks }}"
+    - name: Update all other outdated formulae/casks
+      homebrew:
+        state: latest
+        upgrade_all: yes
+    - name: Install these latest casks
+      homebrew_cask:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - tailscale
+        # - avibrazil-rdm
+        # - sensible-side-buttons
+    - name: Update all other outdated casks
+      homebrew_cask:
+        state: latest
+        upgrade_all: yes
+
+    # Following group of tasks handles uninstalling undesired formulae/casks
+    - name: Get list of all installed brew formulae
+      shell: brew list --formula | tr '\n' ' '
+      register: installed_formulae
+      changed_when: false
+    - name: Get list of all installed brew casks
+      shell: brew list --cask | tr '\n' ' '
+      register: installed_casks
+      changed_when: false
+    - name: Uninstall formulae not in the desired list
+      homebrew:
+        name: "{{ item }}"
+        state: absent
+      with_items: "{{ installed_formulae.stdout.split() | difference(brew_formulae_and_casks) }}"
+      when: item not in ['mas', 'homebrew/cask', 'homebrew/core']  # exclude system packages
+    - name: Uninstall casks not in the desired list
+      homebrew_cask:
+        name: "{{ item }}"
+        state: absent
+      with_items: "{{ installed_casks.stdout.split() | difference(brew_formulae_and_casks) }}"
+      when: item not in ['tailscale']  # exclude packages from separate task
+
+    # Clean up Homebrew - should be run to clear up wasted space
+    - name: Clean up Homebrew
+      shell: brew cleanup
+
+    # Handle dock items
+    - name: Remove unwanted Dock defaults
+      shell: dockutil --remove '{{ item }}'
+      ignore_errors: true
+      with_items: "{{ remove_from_dock }}"
+    - name: Wanted items exist in dock
+      shell: dockutil --find '{{ item.name }}' || dockutil --add '{{ item.path }}'
+      with_items: "{{ persist_in_dock }}"
+    - name: Wanted dock items are in the correct order
+      shell: dockutil --move '{{ item.name }}' --position {{ item.pos }}
+      with_items: "{{ persist_in_dock }}"
+
