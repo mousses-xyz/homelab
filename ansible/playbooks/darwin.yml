@@ -19,7 +19,7 @@
 
       # Networking
       - curl
-      - little-snitch
+      # - little-snitch
       - nmap
       - openssh
       - openvpn
