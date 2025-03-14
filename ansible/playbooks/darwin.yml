@@ -44,6 +44,7 @@
       - ntp
       - tree 
       - ffmpeg
+      - mas
       - neofetch
       - neovim
       - vim
