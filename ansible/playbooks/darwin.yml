@@ -175,26 +175,26 @@
         upgrade_all: yes
 
     # Following group of tasks handles uninstalling undesired formulae/casks
-    - name: Get list of all installed brew formulae
-      shell: brew list --formula | tr '\n' ' '
-      register: installed_formulae
-      changed_when: false
-    - name: Get list of all installed brew casks
-      shell: brew list --cask | tr '\n' ' '
-      register: installed_casks
-      changed_when: false
-    - name: Uninstall formulae not in the desired list
-      homebrew:
-        name: "{{ item }}"
-        state: absent
-      with_items: "{{ installed_formulae.stdout.split() | difference(brew_formulae_and_casks) }}"
-      when: item not in ['mas', 'homebrew/cask', 'homebrew/core']  # exclude system packages
-    - name: Uninstall casks not in the desired list
-      homebrew_cask:
-        name: "{{ item }}"
-        state: absent
-      with_items: "{{ installed_casks.stdout.split() | difference(brew_formulae_and_casks) }}"
-      when: item not in ['tailscale']  # exclude packages from separate task
+    # - name: Get list of all installed brew formulae
+    #   shell: brew list --formula | tr '\n' ' '
+    #   register: installed_formulae
+    #   changed_when: false
+    # - name: Get list of all installed brew casks
+    #   shell: brew list --cask | tr '\n' ' '
+    #   register: installed_casks
+    #   changed_when: false
+    # - name: Uninstall formulae not in the desired list
+    #   homebrew:
+    #     name: "{{ item }}"
+    #     state: absent
+    #   with_items: "{{ installed_formulae.stdout.split() | difference(brew_formulae_and_casks) }}"
+    #   when: item not in ['mas', 'homebrew/cask', 'homebrew/core']  # exclude system packages
+    # - name: Uninstall casks not in the desired list
+    #   homebrew_cask:
+    #     name: "{{ item }}"
+    #     state: absent
+    #   with_items: "{{ installed_casks.stdout.split() | difference(brew_formulae_and_casks) }}"
+    #   when: item not in ['tailscale']  # exclude packages from separate task
 
     # Clean up Homebrew - should be run to clear up wasted space
     - name: Clean up Homebrew
