@@ -3,8 +3,12 @@
   shell: dockutil --remove all --no-restart
   register: removed_items_task
 - name: Check if desired dock items exist and add if nonexistent
-  shell: dockutil --find '{{ item.name }}' || dockutil --add '{{ item.path }}'
+  shell: dockutil --find '{{ item.name }}' || dockutil --add '{{ item.path }}'  --no-restart
   with_items: "{{ dock_items }}"
 - name: Fix dock items order
-  shell: dockutil --move '{{ item.name }}' --position {{ item.pos }}
+  shell: dockutil --move '{{ item.name }}' --position {{ item.pos }}  --no-restart
   with_items: "{{ dock_items }}"
+  # TODO: move to left side of screen and add folders
+- name: Restart Dock
+  shell: killall Dock
+  when: removed_items_task is changed
