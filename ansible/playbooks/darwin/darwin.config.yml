@@ -78,10 +78,13 @@ brew_formulae_and_casks:
   - vlc
   - zoom
 
+mas_apps:
+ - { id: 497799835, name: "Xcode" }
+
 dock_items:
-  - name: Finder
-    path: ""
-    pos: 1
+  # - name: Finder
+  #   path: ""
+  #   pos: 1
   - name: Activity Monitor
     path: "/Applications/Utilities/Activity Monitor.app"
     pos: 2
