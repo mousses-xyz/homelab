@@ -3,21 +3,20 @@
   homebrew:
     name: mas
     state: present
-# - name: Install Xcode
-#   command: xcode-select --install
-#   args:
-#     creates: /Library/Developer/CommandLineTools
-#   register: xcode_installed
-#   changed_when: xcode_installed.rc == 0
-- name: Check if Xcode is installed
-  shell: if [ -z "$(mas list | grep 'Xcode')" ]; then exit 1; else exit 0; fi
-  register: xcode_installed
-  # ignore_errors: true
-  changed_when: xcode_installed.rc != 0
-- name: Install Xcode MAS
-  command: mas install 497799835
-  when: xcode_installed.rc != 0
-- name: Update Xcode
-  shell: if [ -z "$(mas upgrade 497799835)" ]; then exit 0; else exit 1; fi
-  register: xcode_updated
-  changed_when: xcode_updated.rc != 0
+
+- name: Get currently installed MAS apps
+  shell: mas list
+  register: mas_installed_apps
+  changed_when: false
+
+- name: Install MAS apps that aren't installed
+  command: mas install {{ item.id }}
+  loop: "{{ mas_apps }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.name not in mas_installed_apps.stdout
+
+- name: Update all MAS apps
+  command: mas upgrade
+  register: mas_upgrade_result
+  changed_when: mas_upgrade_result.stdout != ""
