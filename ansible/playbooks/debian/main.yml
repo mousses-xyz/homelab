@@ -1,0 +1,7 @@
+---
+- name: Set up basic features on debian servers
+  hosts: debian
+  vars_files:
+    - debian.config.yml
+  tasks:
+    - include_tasks: tasks/apt.yml

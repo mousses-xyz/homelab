@@ -1,0 +1,12 @@
+---
+- name: Update Repositories
+  apt:
+    update_cache: yes
+- name: Upgrade Packages
+  apt:
+    upgrade: yes
+- name: Install these latest apt packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ apt_packages }}"
