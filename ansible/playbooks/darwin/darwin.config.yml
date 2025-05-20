@@ -73,6 +73,7 @@ brew_formulae_and_casks:
   - signal
   - spotify
   - the-unarchiver
+  - thunderbird
   - unnaturalscrollwheels
   - visual-studio-code
   - vlc
@@ -105,36 +106,43 @@ dock_items:
   - name: Mail
     path: "/Applications/Mail.app"
     pos: 7
-  - name: Microsoft Outlook
-    path: "/Applications/Microsoft Outlook.app"
+  # - name: Microsoft Outlook
+  #   path: "/Applications/Microsoft Outlook.app"
+  #   pos: 8
+  # - name: Microsoft Teams
+  #   path: "/Applications/Microsoft Teams.app"
+  #   pos: 9
+  - name: Thunderbird
+    path: "/Applications/Thunderbird.app"
     pos: 8
-  - name: Microsoft Teams
-    path: "/Applications/Microsoft Teams.app"
-    pos: 9
   - name: Terminal
     path: "/Applications/Utilities/Terminal.app"
-    pos: 10
+    pos: 9
   - name: Visual Studio Code
     path: "/Applications/Visual Studio Code.app"
-    pos: 11
+    pos: 10
   - name: Android Studio
     path: "/Applications/Android Studio.app"
-    pos: 12
+    pos: 11
   - name: LibreOffice
     path: "/Applications/LibreOffice.app"
-    pos: 13
+    pos: 12
   - name: Reminders
     path: "/Applications/Reminders.app"
-    pos: 14
-  - name: Notes
-    path: "/Applications/Notes.app"
-    pos: 15
+    pos: 13
+  # - name: Notes
+  #   path: "/Applications/Notes.app"
+  #   pos: 14
   - name: Preview
     path: "/Applications/Preview.app"
-    pos: 16
+    pos: 14
   - name: Spotify
     path: "/Applications/Spotify.app"
-    pos: 17
+    pos: 15
   - name: System Settings
     path: "/Applications/System Settings.app"
-    pos: 18
+    pos: 16
+
+dock_folders:
+  - label: Downloads
+    path: "/Users/petermousses/Downloads"

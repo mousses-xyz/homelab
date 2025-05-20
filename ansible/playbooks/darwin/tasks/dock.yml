@@ -9,6 +9,9 @@
   shell: dockutil --move '{{ item.name }}' --position {{ item.pos }}  --no-restart
   with_items: "{{ dock_items }}"
   # TODO: move to left side of screen and add folders
+- name: Add folders to Dock
+  shell: dockutil --add '{{ item.path }}' --label '{{ item.label }}' --display stack --view fan --no-restart
+  with_items: "{{ dock_folders }}"
 - name: Restart Dock
   shell: killall Dock
   when: removed_items_task is changed
