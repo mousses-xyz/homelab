@@ -13,10 +13,10 @@
     name: "{{ item }}"
     state: latest
   with_items: "{{ brew_formulae_and_casks }}"
-- name: Update all other outdated formulae/casks
-  homebrew:
-    state: latest
-    upgrade_all: yes
+# - name: Update all other outdated formulae/casks
+#   homebrew:
+#     state: latest
+#     upgrade_all: yes
 - name: Install these latest casks
   homebrew_cask:
     name: "{{ item }}"
@@ -53,5 +53,5 @@
 #   when: item not in ['tailscale']  # exclude packages from separate task
 
 # Clean up Homebrew - should be run to clear up wasted space
-- name: Clean up Homebrew
-  shell: brew cleanup
+# - name: Clean up Homebrew
+#   shell: brew cleanup

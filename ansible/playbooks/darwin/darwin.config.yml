@@ -44,6 +44,7 @@ brew_formulae_and_casks:
   - mas
   - neofetch
   - neovim
+  - ollama
   - vim
   - tmux
   - wget
@@ -100,12 +101,12 @@ dock_items:
   - name: Brave Browser
     path: "/Applications/Brave Browser.app"
     pos: 5
-  - name: Calendar
-    path: "/Applications/Calendar.app"
-    pos: 6
-  - name: Mail
-    path: "/Applications/Mail.app"
-    pos: 7
+  # - name: Calendar
+  #   path: "/Applications/Calendar.app"
+  #   pos: 6
+  # - name: Mail
+  #   path: "/Applications/Mail.app"
+  #   pos: 7
   # - name: Microsoft Outlook
   #   path: "/Applications/Microsoft Outlook.app"
   #   pos: 8
@@ -114,34 +115,34 @@ dock_items:
   #   pos: 9
   - name: Thunderbird
     path: "/Applications/Thunderbird.app"
-    pos: 8
+    pos: 6
   - name: Terminal
     path: "/Applications/Utilities/Terminal.app"
-    pos: 9
+    pos: 7
   - name: Visual Studio Code
     path: "/Applications/Visual Studio Code.app"
-    pos: 10
+    pos: 8
   # - name: Android Studio
   #   path: "/Applications/Android Studio.app"
   #   pos: 11
   - name: LibreOffice
     path: "/Applications/LibreOffice.app"
-    pos: 11
+    pos: 9
   - name: Reminders
     path: "/Applications/Reminders.app"
-    pos: 12
+    pos: 10
   # - name: Notes
   #   path: "/Applications/Notes.app"
   #   pos: 14
-  - name: Preview
-    path: "/Applications/Preview.app"
-    pos: 13
+  # - name: Preview
+  #   path: "/Applications/Preview.app"
+  #   pos: 11
   - name: Spotify
     path: "/Applications/Spotify.app"
-    pos: 14
+    pos: 11
   - name: System Settings
     path: "/Applications/System Settings.app"
-    pos: 15
+    pos: 12
 
 dock_folders:
   - label: Downloads

@@ -6,4 +6,4 @@
   tasks:
     - include_tasks: tasks/brew.yml
     - include_tasks: tasks/dock.yml
-    - include_tasks: tasks/mas.yml
+    # - include_tasks: tasks/mas.yml
