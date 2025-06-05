@@ -16,7 +16,7 @@ brew_formulae_and_casks:
 
   # Networking
   - curl
-  # - little-snitch
+  - lulu
   - nmap
   - openssh
   - openvpn
