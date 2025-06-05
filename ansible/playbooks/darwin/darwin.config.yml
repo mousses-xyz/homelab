@@ -86,20 +86,29 @@ brew_formulae_and_casks:
 #  - { id: 6714467650, name: "PerplexityAI" }
 #  - { id: 360593530, name: "Notablility"}
 
+dock_magnification: true
+dock_magnification_size: 96
+dock_orientation: left
+dock_minimize_effect: genie
+dock_double_click_title_bar_action: zoom
+dock_minimize_to_application_icon: false
+dock_autohide: false
+dock_animate_opening_applications: true
+dock_show_recents: false
+
 dock_items:
-  - path: "/Applications/System Settings.app" # weird bug where last desired element in dock_items must be listed first
-  - path: "/Applications/Utilities/Activity Monitor.app"
-  - path: "/Applications/Mission Control.app"
-  - path: "/Applications/Launchpad.app"
-  - path: "/Applications/Brave Browser.app"
-  - path: "/Applications/Thunderbird.app"
-  - path: "/Applications/Utilities/Terminal.app"
-  - path: "/Applications/Visual Studio Code.app"
-  - path: "/Applications/LibreOffice.app"
-  - path: "/Applications/Reminders.app"
-  - path: "/Applications/Spotify.app"
-  - path: "/Applications/System Settings.app"
+  - "/Applications/System Settings.app" # weird bug where last desired element in dock_items must be listed first
+  - "/Applications/Utilities/Activity Monitor.app"
+  - "/Applications/Mission Control.app"
+  - "/Applications/Launchpad.app"
+  - "/Applications/Brave Browser.app"
+  - "/Applications/Thunderbird.app"
+  - "/Applications/Utilities/Terminal.app"
+  - "/Applications/Visual Studio Code.app"
+  - "/Applications/LibreOffice.app"
+  - "/Applications/Reminders.app"
+  - "/Applications/Spotify.app"
+  - "/Applications/System Settings.app"
 
 dock_folders:
-  - label: Downloads
-    path: "/Users/petermousses/Downloads"
+  - "/Users/petermousses/Downloads"
