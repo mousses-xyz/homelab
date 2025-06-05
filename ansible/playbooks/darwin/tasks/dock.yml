@@ -3,15 +3,32 @@
   shell: dockutil --remove all --no-restart
   register: removed_items_task
 - name: Check if desired dock items exist and add if nonexistent
-  shell: dockutil --find '{{ item.name }}' || dockutil --add '{{ item.path }}'  --no-restart
+  vars:
+    app_name: "{{ item.path.split('/')[-1] | replace('.app', '') }}"
+  shell: "dockutil --find '{{ app_name }}' || dockutil --add '{{ item.path }}' --no-restart"
   with_items: "{{ dock_items }}"
 - name: Fix dock items order
-  shell: dockutil --move '{{ item.name }}' --position {{ item.pos }}  --no-restart
-  with_items: "{{ dock_items }}"
-  # TODO: move to left side of screen and add folders
+  vars:
+    app_name: "{{ item.1.path.split('/')[-1] | replace('.app', '') }}"
+  shell: "dockutil --move '{{ app_name }}' --position {{ item.0 }} --no-restart"
+  with_indexed_items: "{{ dock_items }}"
+
+- name: Get current Dock orientation
+  command: defaults read com.apple.dock orientation
+  register: current_dock_orientation
+  changed_when: false
+  failed_when: false # Continue if the key doesn't exist yet
+
+- name: Set Dock orientation to left
+  command: defaults write com.apple.dock orientation -string left
+  when: current_dock_orientation.stdout != "left"
+  register: dock_orientation_set_task
+
 - name: Add folders to Dock
   shell: dockutil --add '{{ item.path }}' --label '{{ item.label }}' --display stack --view fan --no-restart
   with_items: "{{ dock_folders }}"
 - name: Restart Dock
   shell: killall Dock
-  when: removed_items_task is changed
+  when: >
+    removed_items_task is changed or
+    (dock_orientation_set_task is defined and dock_orientation_set_task.changed)

@@ -87,63 +87,18 @@ brew_formulae_and_casks:
 #  - { id: 360593530, name: "Notablility"}
 
 dock_items:
-  # - name: Finder
-  #   path: ""
-  #   pos: 1
-  - name: Activity Monitor
-    path: "/Applications/Utilities/Activity Monitor.app"
-    pos: 2
-  - name: Mission Control
-    path: "/Applications/Mission Control.app"
-    pos: 3
-  - name: Launchpad
-    path: "/Applications/Launchpad.app"
-    pos: 4
-  - name: Brave Browser
-    path: "/Applications/Brave Browser.app"
-    pos: 5
-  # - name: Calendar
-  #   path: "/Applications/Calendar.app"
-  #   pos: 6
-  # - name: Mail
-  #   path: "/Applications/Mail.app"
-  #   pos: 7
-  # - name: Microsoft Outlook
-  #   path: "/Applications/Microsoft Outlook.app"
-  #   pos: 8
-  # - name: Microsoft Teams
-  #   path: "/Applications/Microsoft Teams.app"
-  #   pos: 9
-  - name: Thunderbird
-    path: "/Applications/Thunderbird.app"
-    pos: 6
-  - name: Terminal
-    path: "/Applications/Utilities/Terminal.app"
-    pos: 7
-  - name: Visual Studio Code
-    path: "/Applications/Visual Studio Code.app"
-    pos: 8
-  # - name: Android Studio
-  #   path: "/Applications/Android Studio.app"
-  #   pos: 11
-  - name: LibreOffice
-    path: "/Applications/LibreOffice.app"
-    pos: 9
-  - name: Reminders
-    path: "/Applications/Reminders.app"
-    pos: 10
-  # - name: Notes
-  #   path: "/Applications/Notes.app"
-  #   pos: 14
-  # - name: Preview
-  #   path: "/Applications/Preview.app"
-  #   pos: 11
-  - name: Spotify
-    path: "/Applications/Spotify.app"
-    pos: 11
-  - name: System Settings
-    path: "/Applications/System Settings.app"
-    pos: 12
+  - path: "/Applications/System Settings.app" # weird bug where last desired element in dock_items must be listed first
+  - path: "/Applications/Utilities/Activity Monitor.app"
+  - path: "/Applications/Mission Control.app"
+  - path: "/Applications/Launchpad.app"
+  - path: "/Applications/Brave Browser.app"
+  - path: "/Applications/Thunderbird.app"
+  - path: "/Applications/Utilities/Terminal.app"
+  - path: "/Applications/Visual Studio Code.app"
+  - path: "/Applications/LibreOffice.app"
+  - path: "/Applications/Reminders.app"
+  - path: "/Applications/Spotify.app"
+  - path: "/Applications/System Settings.app"
 
 dock_folders:
   - label: Downloads
