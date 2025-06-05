@@ -20,6 +20,7 @@ brew_formulae_and_casks:
   - nmap
   - openssh
   - openvpn
+  - tailscale
   - wireshark
   - wget
 

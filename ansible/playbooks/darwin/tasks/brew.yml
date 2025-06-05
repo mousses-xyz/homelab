@@ -13,16 +13,16 @@
     name: "{{ item }}"
     state: latest
   with_items: "{{ brew_formulae_and_casks }}"
-# - name: Update all other outdated formulae/casks
-#   homebrew:
-#     state: latest
-#     upgrade_all: yes
-- name: Install these latest casks
-  homebrew_cask:
-    name: "{{ item }}"
+- name: Update all other outdated formulae/casks
+  homebrew:
     state: latest
-  with_items:
-    - tailscale
+    upgrade_all: yes
+# - name: Install these latest casks
+#   homebrew_cask:
+#     name: "{{ item }}"
+#     state: latest
+#   with_items:
+#     - tailscale
     # - avibrazil-rdm
     # - sensible-side-buttons
 - name: Update all other outdated casks
