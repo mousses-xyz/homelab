@@ -11,3 +11,10 @@
   command: "defaults write com.apple.AppleMultitouchTrackpad {{ item.key }} {{ item.value }}"
   loop: "{{ trackpad | dict2items }}"
   when: item.value is defined and item.value | string != (lookup('pipe', 'defaults read com.apple.AppleMultitouchTrackpad ' + item.key)) | string
+- name: Set Finder settings
+  vars:
+    path: com.apple.finder
+    settings: finder
+  command: "defaults write {{ path }} {{ item.key }} {{ item.value }}"
+  loop: "{{ vars[settings] | dict2items }}"
+  when: item.value is defined and item.value | string != (lookup('pipe', 'defaults read ' + path + ' ' + item.key)) | string
