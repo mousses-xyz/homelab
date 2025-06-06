@@ -86,6 +86,18 @@ brew_formulae_and_casks:
 #  - { id: 6714467650, name: "PerplexityAI" }
 #  - { id: 360593530, name: "Notablility"}
 
+domain_default_pairings: 
+  - domain: com.apple.dock
+    settings_var_name: dock_settings
+  - domain: "\"Apple Global Domain\"" # Note: The domain name must be escape-quoted to avoid issues with passing through another task
+    settings_var_name: global_domain_defaults
+  - domain: com.apple.AppleMultitouchMouse
+    settings_var_name: mouse
+  - domain: com.apple.AppleMultitouchTrackpad
+    settings_var_name: trackpad
+  - domain: com.apple.finder
+    settings_var_name: finder
+
 global_domain_defaults: {
   AppleInterfaceStyle: Dark,
   AppleKeyboardUIMode: 3,
@@ -172,6 +184,23 @@ trackpad: {
   version: 12,  
 }
 
+finder: {
+  AppleShowAllExtensions: 1,
+  AppleShowAllFiles: 1,
+  FXRemoveOldTrashItems: 0,
+  FXArrangeGroupViewBy: Name,
+  ShowExternalHardDrivesOnDesktop: 1,
+  ShowHardDrivesOnDesktop: 0,
+  ShowMountedServersOnDesktop: 1,
+  ShowPathbar: 0,
+  ShowRecentTags: 1,
+  ShowRemovableMediaOnDesktop: 1,
+  ShowSidebar: 1,
+  ShowStatusBar: 1,
+  "_FXShowPosixPathInTitle": 1,
+  "_FXSortFoldersFirst": 1,
+  "_FXSortFoldersFirstOnDesktop": 1,
+}
 
 dock_double_click_title_bar_action: zoom # TODO: fix
 
