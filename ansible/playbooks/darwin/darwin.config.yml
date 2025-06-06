@@ -86,15 +86,105 @@ brew_formulae_and_casks:
 #  - { id: 6714467650, name: "PerplexityAI" }
 #  - { id: 360593530, name: "Notablility"}
 
-dock_magnification: true
-dock_magnification_size: 96
-dock_orientation: left
-dock_minimize_effect: genie
-dock_double_click_title_bar_action: zoom
-dock_minimize_to_application_icon: false
-dock_autohide: false
-dock_animate_opening_applications: true
-dock_show_recents: false
+global_domain_defaults: {
+  AppleInterfaceStyle: Dark,
+  AppleKeyboardUIMode: 3,
+  AppleMeasurementUnits: Inches,
+  AppleMenuBarVisibleInFullscreen: 0,
+  AppleMetricUnits: 0,
+  AppleMiniaturizeOnDoubleClick: 0,
+  AppleReduceDesktopTinting: 0,
+  AppleScrollerPagingBehavior: 1,
+  AppleShowAllExtensions: 1,
+  AppleShowScrollBars: Always,
+  AppleSpacesSwitchOnActivate: 0,
+  AppleTemperatureUnit: Fahrenheit,
+  AppleWindowTabbingMode: fullscreen,
+  CGDisableCursorLocationMagnification: 0,
+  ContextMenuGesture: 1,
+  KeyRepeat: 6,
+  InitialKeyRepeat: 25,
+  AppleLocale: en_US,
+  NSAutomaticCapitalizationEnabled: 0,
+  NSAutomaticDashSubstitutionEnabled: 0,
+  NSAutomaticInlinePredictionEnabled: 0,
+  NSAutomaticPeriodSubstitutionEnabled: 0,
+  NSAutomaticQuoteSubstitutionEnabled: 0,
+  NSAutomaticSpellingCorrectionEnabled: 0,
+  NSAutomaticTextCompletionEnabled: 0,
+  NSCloseAlwaysConfirmsChanges: 1,
+  "com.apple.keyboard.fnState": 0,
+  "com.apple.mouse.scaling": 3,
+  "com.apple.scrollwheel.scaling": "0.5",
+  "com.apple.sound.beep.feedback": 1,
+  "com.apple.sound.beep.flash": 0,
+  "com.apple.sound.beep.sound": "/System/Library/Sounds/Blow.aiff",
+  "com.apple.springing.delay": "0.5",
+  "com.apple.springing.enabled": 1,
+  "com.apple.swipescrolldirection": 1,
+  "com.apple.trackpad.forceClick": 1,
+  "com.apple.trackpad.scaling": "1.5",
+}
+
+mouse: {
+  MouseButtonDivision: 55,
+  MouseButtonMode: TwoButton,
+  MouseHorizontalScroll: 1,
+  MouseMomentumScroll: 1,
+  MouseOneFingerDoubleTapGesture: 1,
+  MouseTwoFingerDoubleTapGesture: 3,
+  MouseTwoFingerHorizSwipeGesture: 2,
+  MouseVerticalScroll: 1,
+  UserPreferences: 1,
+  version: 1,
+}
+
+trackpad: {
+  ActuateDetents: 0,
+  ActuationStrength: 0, 
+  Clicking: 0,  
+  DragLock: 0,  
+  Dragging: 0,  
+  FirstClickThreshold: 0, 
+  ForceSuppressed: 1, 
+  HIDScrollZoomModifierMask: 0, 
+  SecondClickThreshold: 0,  
+  TrackpadCornerSecondaryClick: 0,  
+  TrackpadFiveFingerPinchGesture: 2,  
+  TrackpadFourFingerHorizSwipeGesture: 2, 
+  TrackpadFourFingerPinchGesture: 2,  
+  TrackpadFourFingerVertSwipeGesture: 2,  
+  TrackpadHandResting: 1, 
+  TrackpadHorizScroll: 1, 
+  TrackpadMomentumScroll: 1,  
+  TrackpadPinch: 1, 
+  TrackpadRightClick: 1,  
+  TrackpadRotate: 1,  
+  TrackpadScroll: 1,  
+  TrackpadThreeFingerDrag: 0, 
+  TrackpadThreeFingerHorizSwipeGesture: 2,  
+  TrackpadThreeFingerTapGesture: 2, 
+  TrackpadThreeFingerVertSwipeGesture: 2, 
+  TrackpadTwoFingerDoubleTapGesture: 1, 
+  TrackpadTwoFingerFromRightEdgeSwipeGesture: 3,  
+  USBMouseStopsTrackpad: 0, 
+  UserPreferences: 1, 
+  version: 12,  
+}
+
+
+dock_double_click_title_bar_action: zoom # TODO: fix
+
+dock_settings: {
+  magnification: 1,
+  largesize: 96,
+  orientation: left,
+  mineffect: genie,
+  minimize-to-application: 1,
+  autohide: 0,
+  show-process-indicators: 1,
+  show-recents: 0,
+}
 
 dock_items:
   - "/Applications/System Settings.app" # weird bug where last desired element in dock_items must be listed first

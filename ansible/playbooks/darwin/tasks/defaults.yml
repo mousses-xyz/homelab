@@ -1,0 +1,13 @@
+---
+- name: Set global_domain_defaults
+  command: "defaults write 'Apple Global Domain' {{ item.key }} {{ item.value }}"
+  loop: "{{ global_domain_defaults | dict2items }}"
+  when: item.value is defined and item.value | string != (lookup('pipe', 'defaults read "Apple Global Domain" ' + item.key)) | string
+- name: Set mouse settings
+  command: "defaults write com.apple.AppleMultitouchMouse {{ item.key }} {{ item.value }}"
+  loop: "{{ mouse | dict2items }}"
+  when: item.value is defined and item.value | string != (lookup('pipe', 'defaults read com.apple.AppleMultitouchMouse ' + item.key)) | string
+- name: Set trackpad settings
+  command: "defaults write com.apple.AppleMultitouchTrackpad {{ item.key }} {{ item.value }}"
+  loop: "{{ trackpad | dict2items }}"
+  when: item.value is defined and item.value | string != (lookup('pipe', 'defaults read com.apple.AppleMultitouchTrackpad ' + item.key)) | string

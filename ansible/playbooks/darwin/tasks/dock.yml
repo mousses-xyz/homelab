@@ -11,55 +11,18 @@
           dockutil --move '{{ app_name }}' --position {{ item.0 }} --no-restart"
   with_indexed_items: "{{ dock_items }}"
   when: dock_removed_items_task is defined and dock_removed_items_task is changed
-  register: dock_items_set_task
 
 - name: Add folders to Dock
   vars:
     folder_name: "{{ item.1.split('/')[-1] | replace('.app', '') }}"
   shell: "dockutil --find '{{ folder_name }}' || dockutil --add '{{ item }}' --display stack --view fan --no-restart"
   with_items: "{{ dock_folders }}"
-  register: dock_folders_set_task
   when: dock_removed_items_task is defined and dock_removed_items_task is changed
 
-- name: Get current Dock magnification setting
-  command: defaults read com.apple.dock magnification
-  register: current_dock_magnification
-  changed_when: false
-  failed_when: false
-- name: Enable Dock magnification
-  command: defaults write com.apple.dock magnification -bool true
-  when: current_dock_magnification.stdout != "1"
-  register: dock_magnification_enabled_task
-
-- name: Get current Dock magnification size
-  command: defaults read com.apple.dock largesize
-  register: current_dock_magnification_size
-  changed_when: false
-  failed_when: false
-- name: Set Dock magnification size
-  command: defaults write com.apple.dock largesize -int '{{ dock_magnification_size }}'
-  when: current_dock_magnification_size.stdout != dock_magnification_size | string
-  register: dock_magnification_set_task
-
-- name: Get current Dock orientation
-  command: defaults read com.apple.dock orientation
-  register: current_dock_orientation
-  changed_when: false
-  failed_when: false
-- name: Set Dock orientation to left
-  command: defaults write com.apple.dock orientation -string '{{ dock_orientation }}'
-  when: current_dock_orientation.stdout != dock_orientation | string
-  register: dock_orientation_set_task
-
-- name: Get current Dock minimize effect
-  command: defaults read com.apple.dock mineffect
-  register: current_dock_minimize_effect
-  changed_when: false
-  failed_when: false
-- name: Set Dock minimize effect
-  command: defaults write com.apple.dock mineffect -string '{{ dock_minimize_effect }}'
-  when: current_dock_minimize_effect.stdout != dock_minimize_effect
-  register: dock_minimize_effect_set_task
+- name: Set Dock settings
+  command: "defaults write com.apple.dock {{ item.key }} {{ item.value }}"
+  loop: "{{ dock_settings | dict2items }}"
+  when: item.value is defined and item.value | string != (lookup('pipe', 'defaults read com.apple.dock ' + item.key)) | string
 
 - name: Get current Dock double-click title bar action
   command: defaults read NSGlobalDomain AppleActionOnDoubleClick
@@ -69,55 +32,6 @@
 - name: Set Dock double-click title bar action
   command: defaults write NSGlobalDomain AppleActionOnDoubleClick -string '{{ dock_double_click_title_bar_action }}'
   when: current_dock_double_click_action.stdout != dock_double_click_title_bar_action
-  register: dock_double_click_action_set_task
-
-- name: Get current Dock minimize to application icon setting
-  command: defaults read com.apple.dock minimize-to-application
-  register: current_dock_minimize_to_application
-  changed_when: false
-  failed_when: false
-- name: Set Dock minimize to application icon
-  command: defaults write com.apple.dock minimize-to-application -bool '{{ dock_minimize_to_application_icon }}'
-  when: >
-    (dock_minimize_to_application_icon and current_dock_minimize_to_application.stdout != "1") or
-    (not dock_minimize_to_application_icon and current_dock_minimize_to_application.stdout != "0")
-  register: dock_minimize_to_application_set_task
-
-- name: Get current Dock autohide setting
-  command: defaults read com.apple.dock autohide
-  register: current_dock_autohide
-  changed_when: false
-  failed_when: false
-- name: Set Dock autohide
-  command: defaults write com.apple.dock autohide -bool '{{ dock_autohide }}'
-  when: >
-    (dock_autohide and current_dock_autohide.stdout != "1") or
-    (not dock_autohide and current_dock_autohide.stdout != "0")
-  register: dock_autohide_set_task
-
-- name: Get current Dock animate opening applications setting
-  command: defaults read com.apple.dock show-process-indicators
-  register: current_dock_animate_opening_applications
-  changed_when: false
-  failed_when: false
-- name: Set Dock animate opening applications
-  command: defaults write com.apple.dock show-process-indicatorss -bool '{{ dock_animate_opening_applications }}'
-  when: >
-    (dock_animate_opening_applications and current_dock_animate_opening_applications.stdout != "1") or
-    (not dock_animate_opening_applications and current_dock_animate_opening_applications.stdout != "0")
-  register: dock_animate_opening_applications_set_task
-
-- name: Get current Dock autohide setting
-  command: defaults read com.apple.dock show-recents
-  register: current_dock_show_recents
-  changed_when: false
-  failed_when: false
-- name: Set Dock autohide
-  command: defaults write com.apple.dock show-recents -bool '{{ dock_show_recents }}'
-  when: >
-    (dock_show_recents and current_dock_show_recents.stdout != "1") or
-    (not dock_show_recents and current_dock_show_recents.stdout != "0")
-  register: dock_show_recents_set_task
 
 - name: Restart Dock
   shell: killall Dock
