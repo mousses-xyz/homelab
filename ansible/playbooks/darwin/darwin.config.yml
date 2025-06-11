@@ -16,12 +16,12 @@ brew_formulae_and_casks:
 
   # Networking
   - curl
-  - lulu
+  # - lulu
   - nmap
   - openssh
-  - openvpn
+  # - openvpn
   - tailscale
-  - wireshark
+  # - wireshark
   - wget
 
   # Other Development tools
