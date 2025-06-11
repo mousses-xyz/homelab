@@ -1,6 +1,30 @@
 ---
 - name: Apply settings for multiple applications using an included task
-  ansible.builtin.include_tasks: _apply_defaults_to_domain.yml
+  include_tasks: _apply_defaults_to_domain.yml
   loop: "{{ domain_default_pairings }}"
   loop_control:
-    loop_var: app_defaults_config
+    loop_var: defaults_config
+  when: 
+    - ansible_facts['os_family'] == 'Darwin'
+    - defaults_config is defined
+    - defaults_config | length > 0
+
+- name: Set screen saver settings
+  command: "defaults -currentHost read com.apple.screensaver {{ screensaver_settings }}"
+  with_dict: "{{ screensaver_settings }}"
+  when: 
+    - ansible_facts['os_family'] == 'Darwin'
+    - screensaver_settings is defined
+    - screensaver_settings | length > 0
+
+- name: Remap Caps Lock key to Escape key
+  # command: "defaults -currentHost write NSGlobalDomain com.apple.keyboard.modifiermapping -array-add '{ HIDKeyboardModifierMappingSrc = 1879048249; HIDKeyboardModifierMappingDst = 1879048233; }'"
+  osx_defaults:
+    domain: NSGlobalDomain
+    key: com.apple.keyboard.modifiermapping
+    type: array
+    value:
+      # Remaps Caps Lock (0x700000039) to Escape (0x700000029)
+      - '{ HIDKeyboardModifierMappingSrc = 1879048249; HIDKeyboardModifierMappingDst = 1879048233; }'
+    state: present
+  when: ansible_facts['os_family'] == 'Darwin'

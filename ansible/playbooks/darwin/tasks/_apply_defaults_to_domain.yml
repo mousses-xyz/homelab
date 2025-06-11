@@ -1,4 +1,11 @@
-- name: Set defaults for {{ app_defaults_config.settings_var_name }} in {{ app_defaults_config.domain }}
-  command: "defaults write {{ app_defaults_config.domain }} {{ item.key }} {{ item.value }}"
-  loop: "{{ lookup('vars', app_defaults_config.settings_var_name) | dict2items }}"
-  when: item.value is defined and item.value | string != (lookup('pipe', 'defaults read ' + app_defaults_config.domain + ' ' + item.key)) | string
+- name: Set defaults for {{ defaults_config }}
+  osx_defaults:
+    domain: defaults_config
+    key: item.key
+    value: item.value
+    state: present
+  loop: "{{ lookup('vars', defaults_config) | dict2items }}"
+  when:
+    - ansible_facts['os_family'] == 'Darwin'
+    - item.value is defined
+    - item.value | string != (lookup('pipe', 'defaults read ' + defaults_config + ' ' + item.key)) | string

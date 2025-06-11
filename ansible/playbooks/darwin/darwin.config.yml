@@ -87,18 +87,17 @@ brew_formulae_and_casks:
 #  - { id: 360593530, name: "Notablility"}
 
 domain_default_pairings: 
-  - domain: com.apple.dock
-    settings_var_name: dock_settings
-  - domain: "\"Apple Global Domain\"" # Note: The domain name must be escape-quoted to avoid issues with passing through another task
-    settings_var_name: global_domain_defaults
-  - domain: com.apple.AppleMultitouchMouse
-    settings_var_name: mouse
-  - domain: com.apple.AppleMultitouchTrackpad
-    settings_var_name: trackpad
-  - domain: com.apple.finder
-    settings_var_name: finder
+  - com.apple.dock
+  - "\"Apple Global Domain\""
+  - com.apple.AppleMultitouchMouse
+  - com.apple.AppleMultitouchTrackpad
+  - com.apple.finder
+  - com.apple.menuextra.clock
+  - com.apple.networkConnect
+  - com.theron.UnnaturalScrollWheels
+  #- net.archagon.sensible-side-buttons
 
-global_domain_defaults: {
+"\"Apple Global Domain\"": {
   AppleInterfaceStyle: Dark,
   AppleKeyboardUIMode: 3,
   AppleMeasurementUnits: Inches,
@@ -138,7 +137,7 @@ global_domain_defaults: {
   "com.apple.trackpad.scaling": "1.5",
 }
 
-mouse: {
+com.apple.AppleMultitouchMouse: {
   MouseButtonDivision: 55,
   MouseButtonMode: TwoButton,
   MouseHorizontalScroll: 1,
@@ -151,7 +150,7 @@ mouse: {
   version: 1,
 }
 
-trackpad: {
+com.apple.AppleMultitouchTrackpad: {
   ActuateDetents: 0,
   ActuationStrength: 0, 
   Clicking: 0,  
@@ -184,7 +183,7 @@ trackpad: {
   version: 12,  
 }
 
-finder: {
+com.apple.finder: {
   AppleShowAllExtensions: 1,
   AppleShowAllFiles: 1,
   FXRemoveOldTrashItems: 0,
@@ -202,9 +201,62 @@ finder: {
   "_FXSortFoldersFirstOnDesktop": 1,
 }
 
+com.apple.menuextra.clock: {
+  FlashDateSeparators: 0,
+  IsAnalog: 0,
+  Show24Hour: 0,
+  ShowAMPM: 1,
+  ShowDate: 1,
+  ShowDayOfMonth: 1,
+  ShowDayOfWeek: 1,
+  ShowSeconds: 1,
+}
+
+com.apple.networkConnect: {
+  VPNShowStatus: 1,
+  VPNShowTime: 0,
+}
+
+com.theron.UnnaturalScrollWheels: {
+  AlternateDetectionMethod: 0,
+  DisableMouseAccel: 1,
+  DisableScrollAccel: 1,
+  FirstLaunch: 0,
+  InvertHorizonalScroll: 0,
+  InvertHorizontalScroll: 0,
+  InvertVerticalScroll: 1,
+  LaunchAtLogin: 1,
+  OriginalAccel: 196608,
+  ScrollLines: 3,
+  ShowMenuBarIcon: 0,
+}
+
+net.archagon.sensible-side-buttons: {
+  "NSStatusItem Visible Item-0": 0,
+  SBFMouseDown: 0,
+  SBFSwapButtons: 0,
+  SBFWasEnabled: 0,
+}
+
+# TODO: Figure out how to get non-default screensaver settings to work
+# screensaver_settings: {
+#   # moduleName: Flurry,
+#   CleanExit: 1,
+#   idleTime: 300, # 5 minutes
+#   moduleDict: {
+#       moduleName: Ventura, # Nature
+#       path: "/System/Library/ExtensionKit/Extensions/Ventura.appex", # California Kelp Forest
+#       type: 0,
+#   },
+#   showClock: 1,
+#   tokenRemovalAction: 0,
+#   askForPassword: 1,
+#   askForPasswordDelay: 0,
+# }
+
 dock_double_click_title_bar_action: zoom # TODO: fix
 
-dock_settings: {
+com.apple.dock: {
   magnification: 1,
   largesize: 96,
   orientation: left,
