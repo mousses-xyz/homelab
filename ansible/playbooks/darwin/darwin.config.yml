@@ -72,6 +72,8 @@ brew_formulae_and_casks:
   - font-monocraft
   - libreoffice
   - localsend
+  # - logitech-options
+  - logi-options+
   - signal
   - spotify
   - the-unarchiver
