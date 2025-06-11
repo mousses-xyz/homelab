@@ -1,6 +1,7 @@
 ---
 - name: Remove all dock items
   shell: dockutil --remove all --no-restart
+  when: ansible_facts['os_family'] == 'Darwin'
   register: dock_removed_items_task
 
 - name: Add desired apps to Dock and set their positions
@@ -10,19 +11,28 @@
           dockutil --add '{{ item.1 }}' --no-restart &&\
           dockutil --move '{{ app_name }}' --position {{ item.0 }} --no-restart"
   with_indexed_items: "{{ dock_items }}"
-  when: dock_removed_items_task is defined and dock_removed_items_task is changed
+  when: 
+    - ansible_facts['os_family'] == 'Darwin'
+    - dock_removed_items_task is defined
+    - dock_removed_items_task is changed
 
 - name: Add folders to Dock
   vars:
     folder_name: "{{ item.1.split('/')[-1] | replace('.app', '') }}"
   shell: "dockutil --find '{{ folder_name }}' || dockutil --add '{{ item }}' --display stack --view fan --no-restart"
   with_items: "{{ dock_folders }}"
-  when: dock_removed_items_task is defined and dock_removed_items_task is changed
+  when: 
+    - ansible_facts['os_family'] == 'Darwin'
+    - dock_removed_items_task is defined
+    - dock_removed_items_task is changed
 
 - name: Set Dock settings
   command: "defaults write com.apple.dock {{ item.key }} {{ item.value }}"
   loop: "{{ dock_settings | dict2items }}"
-  when: item.value is defined and item.value | string != (lookup('pipe', 'defaults read com.apple.dock ' + item.key)) | string
+  when: 
+    - ansible_facts['os_family'] == 'Darwin'
+    - item.value is defined 
+    - item.value | string != (lookup('pipe', 'defaults read com.apple.dock ' + item.key)) | string
 
 - name: Get current Dock double-click title bar action
   command: defaults read NSGlobalDomain AppleActionOnDoubleClick
@@ -31,7 +41,10 @@
   failed_when: false
 - name: Set Dock double-click title bar action
   command: defaults write NSGlobalDomain AppleActionOnDoubleClick -string '{{ dock_double_click_title_bar_action }}'
-  when: current_dock_double_click_action.stdout != dock_double_click_title_bar_action
+  when: 
+    - ansible_facts['os_family'] == 'Darwin'
+    - current_dock_double_click_action.stdout != dock_double_click_title_bar_action
 
 - name: Restart Dock
   shell: killall Dock
+  when: ansible_facts['os_family'] == 'Darwin'

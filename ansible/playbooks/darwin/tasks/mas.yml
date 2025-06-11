@@ -3,20 +3,25 @@
   homebrew:
     name: mas
     state: present
+  when: ansible_facts['os_family'] == 'Darwin'
 
 - name: Get currently installed MAS apps
   shell: mas list
   register: mas_installed_apps
   changed_when: false
+  when: ansible_facts['os_family'] == 'Darwin'
 
 - name: Install MAS apps that aren't installed
   command: mas install {{ item.id }}
   loop: "{{ mas_apps }}"
   loop_control:
     label: "{{ item.name }}"
-  when: item.name not in mas_installed_apps.stdout
+  when: 
+    - ansible_facts['os_family'] == 'Darwin'
+    - item.name not in mas_installed_apps.stdout
 
 - name: Update all MAS apps
   command: mas upgrade
   register: mas_upgrade_result
   changed_when: mas_upgrade_result.stdout != ""
+  when: ansible_facts['os_family'] == 'Darwin'
