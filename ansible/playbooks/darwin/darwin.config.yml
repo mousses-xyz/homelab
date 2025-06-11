@@ -68,8 +68,8 @@ brew_formulae_and_casks:
   - aldente
   - bitwarden
   - brave-browser
-  - chatgpt
-  - font-monocraft
+  # - chatgpt
+  # - font-monocraft
   - libreoffice
   - localsend
   # - logitech-options
@@ -81,7 +81,7 @@ brew_formulae_and_casks:
   - unnaturalscrollwheels
   - visual-studio-code
   - vlc
-  - zoom
+  # - zoom
 
 # mas_apps:
 #  - { id: 497799835, name: "Xcode" }
