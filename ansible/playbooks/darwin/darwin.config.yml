@@ -284,4 +284,4 @@ dock_items:
   - "/Applications/System Settings.app"
 
 dock_folders:
-  - "/Users/petermousses/Downloads"
+  - "~/Downloads"
