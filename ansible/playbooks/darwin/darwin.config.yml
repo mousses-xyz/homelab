@@ -272,8 +272,8 @@ com.apple.dock: {
 dock_items:
   - "/Applications/System Settings.app" # weird bug where last desired element in dock_items must be listed first
   - "/Applications/Utilities/Activity Monitor.app"
-  - "/Applications/Mission Control.app"
-  - "/Applications/Launchpad.app"
+  # - "/Applications/Mission Control.app"
+  # - "/Applications/Launchpad.app"
   - "/Applications/Brave Browser.app"
   - "/Applications/Thunderbird.app"
   - "/Applications/Utilities/Terminal.app"
