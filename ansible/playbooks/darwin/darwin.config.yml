@@ -53,11 +53,11 @@ brew_formulae_and_casks:
   - zsh
 
   # Microsoft Stuff
-  - microsoft-teams
-  - microsoft-outlook
-  - microsoft-word
-  - microsoft-excel
-  - microsoft-powerpoint
+  # - microsoft-teams
+  # - microsoft-outlook
+  # - microsoft-word
+  # - microsoft-excel
+  # - microsoft-powerpoint
 
   # Gaming
   - minecraft
