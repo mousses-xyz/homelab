@@ -1,9 +1,10 @@
 ---
 brew_formulae_and_casks:
-  # Containers/Virtualization
+  # Containers/Virtualization/Infrastructure
   - docker
   - docker-compose
   - kubectl
+  - opentofu
   - qemu
   - utm
 
@@ -16,7 +17,7 @@ brew_formulae_and_casks:
 
   # Networking
   - curl
-  # - lulu
+  - lulu
   - nmap
   - openssh
   # - openvpn
@@ -87,6 +88,8 @@ brew_formulae_and_casks:
 #  - { id: 497799835, name: "Xcode" }
 #  - { id: 6714467650, name: "PerplexityAI" }
 #  - { id: 360593530, name: "Notablility"}
+
+macos_terminal_profile_path: "../../../PeterProfile.terminal"
 
 domain_default_pairings: 
   - com.apple.dock
@@ -298,7 +301,9 @@ dock_items:
   # - "/Applications/Mission Control.app"
   # - "/Applications/Launchpad.app"
   - "/Applications/Brave Browser.app"
-  - "/Applications/Thunderbird.app"
+  # - "/Applications/Thunderbird.app"
+  - "/Applications/Calendar.app"
+  - "/Applications/Mail.app"
   - "/Applications/Utilities/Terminal.app"
   - "/Applications/Visual Studio Code.app"
   - "/Applications/LibreOffice.app"

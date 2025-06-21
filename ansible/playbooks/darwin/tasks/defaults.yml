@@ -28,3 +28,38 @@
       - '{ HIDKeyboardModifierMappingSrc = 1879048249; HIDKeyboardModifierMappingDst = 1879048233; }'
     state: present
   when: ansible_facts['os_family'] == 'Darwin'
+
+# Ensure the following variables are defined in your playbook or inventory:
+# macos_terminal_profile_path: "/path/to/your/Pro.terminal" # Full path to the .terminal file on the target machine
+# macos_terminal_profile_name: "Pro"                       # The name of the profile as it appears in Terminal.app
+
+- name: Import macOS Terminal profile
+  command: "open {{ macos_terminal_profile_path }}"
+  changed_when: false # 'open' command's change status is not reliably indicative of actual state change.
+  when:
+    - ansible_facts['os_family'] == 'Darwin'
+    - macos_terminal_profile_path is defined
+    - macos_terminal_profile_path | length > 0
+    # To make this more robust, you could add a prior 'stat' task
+    # to check if 'macos_terminal_profile_path' exists.
+
+- name: Set imported macOS Terminal profile as default
+  vars:
+    name: "{{ macos_terminal_profile_path | basename | regex_replace('\\.terminal$', '') }}"
+  osx_defaults:
+    domain: com.apple.Terminal
+    key: "{{ item.key }}"
+    type: string
+    value: "{{ name }}"
+    state: present
+  loop:
+    - { key: 'Default Window Settings' }
+    - { key: 'Startup Window Settings' }
+  when:
+    - ansible_facts['os_family'] == 'Darwin'
+    - name is defined
+    - name | length > 0
+  # Note: Terminal.app may need to be restarted for these changes to take full effect.
+  # You might want to add a 'notify' directive here to a handler that restarts Terminal.app.
+
+  # TODO: import zsh profile
