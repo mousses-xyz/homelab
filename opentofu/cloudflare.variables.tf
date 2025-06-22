@@ -3,6 +3,11 @@ variable "cloudflare_api_token" {
 	sensitive = true
 	description = "Cloudflare API token"
 }
+variable "cloudflare_zone_id" {
+	type = string
+	sensitive = true
+	description = "Zone ID for my domain"
+}
 variable "bluesky_vps_ipv4" {
 	type = string
 	sensitive = true
