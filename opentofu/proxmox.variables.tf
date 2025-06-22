@@ -18,6 +18,11 @@ variable "proxmox_primary_node_api_token" {
 	sensitive = true
 	description = "The Proxmox API token for the primary node."
 }
+variable "proxmox_primary_node_ipv4_reserved_fourth_number" {
+	type = string
+	sensitive = true
+	description = "Fourth number in IPv4 Address. For example Y when x.x.x.Y is the address."
+}
 variable "proxmox_secondary_node_name" {
 	type = string
 	sensitive = false
@@ -27,4 +32,14 @@ variable "proxmox_secondary_node_api_token" {
 	type = string
 	sensitive = true
 	description = "The Proxmox API token for the secondary node."
+}
+variable "proxmox_secondary_node_ipv4_reserved_fourth_number" {
+	type = string
+	sensitive = true
+	description = "Fourth number in IPv4 Address. For example Y when x.x.x.Y is the address."
+}
+variable "proxmox_secondary_node_backup_ipv4_reserved_fourth_number" {
+	type = string
+	sensitive = true
+	description = "Fourth number in IPv4 Address. For example Y when x.x.x.Y is the address."
 }
