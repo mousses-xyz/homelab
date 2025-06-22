@@ -1,5 +1,5 @@
 resource "proxmox_virtual_environment_network_linux_bridge" "LAN1" {
-	node_name	= "tower"
+	node_name	= var.proxmox_secondary_node_name
 	name		= "LAN1"
 	gateway		= "***REMOVED***.1"
 	address		= "***REMOVED***/24"
@@ -15,7 +15,7 @@ resource "proxmox_virtual_environment_network_linux_bridge" "LAN1" {
 }
 
 resource "proxmox_virtual_environment_network_linux_bridge" "WAN1" {
-	node_name	= "tower"
+	node_name	= var.proxmox_secondary_node_name
 	name		= "WAN1"
 	comment		= "SFP+ further from PCIe"
 	autostart	= true
@@ -29,7 +29,7 @@ resource "proxmox_virtual_environment_network_linux_bridge" "WAN1" {
 }
 
 resource "proxmox_virtual_environment_network_linux_bridge" "Mobo" {
-	node_name	= "tower"
+	node_name	= var.proxmox_secondary_node_name
 	name		= "Mobo"
 	address		= "***REMOVED***/24"
 	comment		= "Motherboard RJ45"

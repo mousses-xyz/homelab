@@ -12,17 +12,17 @@ terraform {
 }
 
 provider "proxmox" {
-	# alias = "kitty"
-	endpoint = "https://kitty.mousses.xyz:8006/api2/json"
-	api_token = var.proxmox_kitty_api_token_pair
+	# alias = "primary"
+	endpoint = local.proxmox_primary_node_api_url
+	api_token = var.proxmox_primary_node_api_token
 	# self-signed TLS certificate is in use
 	insecure = true
 }
 
 provider "proxmox" {
-	alias = "tower"
-	endpoint = "https://tower.mousses.xyz:8006/api2/json"
-	api_token = var.proxmox_tower_api_token_pair
+	alias = "secondary"
+	endpoint = local.proxmox_secondary_node_api_url
+	api_token = var.proxmox_secondary_node_api_token
 	# self-signed TLS certificate is in use
 	insecure = true
 }
