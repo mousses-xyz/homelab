@@ -1,8 +1,8 @@
 resource "proxmox_virtual_environment_network_linux_bridge" "LAN1" {
 	node_name	= var.proxmox_secondary_node_name
 	name		= "LAN1"
-	gateway		= "${var.ipv4_lan_prefix}.1"
-	address		= "${var.ipv4_lan_prefix}.${var.proxmox_secondary_node_ipv4_reserved_fourth_number}/24"
+	gateway		= "${var.lan_ipv4_prefix}.1"
+	address		= "${var.lan_ipv4_prefix}.${var.proxmox_secondary_node_ipv4_reserved_fourth_number}/24"
 	comment		= "SFP+ Closer to PCIe connector"
 	autostart	= true
 	vlan_aware	= true
@@ -31,7 +31,7 @@ resource "proxmox_virtual_environment_network_linux_bridge" "WAN1" {
 resource "proxmox_virtual_environment_network_linux_bridge" "Mobo" {
 	node_name	= var.proxmox_secondary_node_name
 	name		= "Mobo"
-	address		= "${var.ipv4_lan_prefix}.${var.proxmox_secondary_node_backup_ipv4_reserved_fourth_number}/24"
+	address		= "${var.lan_ipv4_prefix}.${var.proxmox_secondary_node_backup_ipv4_reserved_fourth_number}/24"
 	comment		= "Motherboard RJ45"
 	autostart	= true
 	vlan_aware	= true
