@@ -3,7 +3,7 @@ resource "cloudflare_dns_record" "bluesky_vps_root" {
   name = "bluesky"
   type = "A"
   comment = "Bluesky VPS root DNS record"
-  content = var.bluesky_vps_ipv4
+  content = var.cloudflare_dns_bluesky_vps_ipv4
   proxied = false
   ttl = 1
 }
@@ -12,7 +12,7 @@ resource "cloudflare_dns_record" "bluesky_vps_wildcard" {
   name = "*.bluesky"
   type = "A"
   comment = "Bluesky VPS wildcard DNS record"
-  content = var.bluesky_vps_ipv4
+  content = var.cloudflare_dns_bluesky_vps_ipv4
   proxied = false
   ttl = 1
 }
@@ -22,7 +22,7 @@ resource "cloudflare_dns_record" "minecraft_root" {
   name = "minecraft"
   type = "A"
   comment = "Minecraft server root DNS record"
-  content = var.bluesky_vps_ipv4
+  content = var.cloudflare_dns_minecraft_ipv4
   proxied = false
   ttl = 1
 }
@@ -31,7 +31,7 @@ resource "cloudflare_dns_record" "minecraft_wildcard" {
   name = "*.minecraft"
   type = "A"
   comment = "Minecraft server wildcard DNS record"
-  content = var.bluesky_vps_ipv4
+  content = var.cloudflare_dns_minecraft_ipv4
   proxied = false
   ttl = 1
 }
