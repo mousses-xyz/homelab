@@ -13,3 +13,13 @@ variable "lab_ipv4_address" {
 	sensitive = true
 	description = "Public IPv4 address of lab"
 }
+variable "lab_ipv6_prefix" {
+	type = string
+	sensitive = true
+	description = "Public IPv6 prefix for lab"
+}
+variable "lab_ipv6_prefix_size" {
+	type = string
+	sensitive = true
+	description = "Public IPv6 prefix size for lab"
+}
