@@ -1,5 +1,5 @@
 resource "cloudflare_dns_record" "bluesky_vps_root" {
-  zone_id = "***REMOVED***"
+  zone_id = var.cloudflare_zone_id
   name = "bluesky"
   type = "A"
   comment = "Bluesky VPS root DNS record"
@@ -8,7 +8,7 @@ resource "cloudflare_dns_record" "bluesky_vps_root" {
   ttl = 1
 }
 resource "cloudflare_dns_record" "bluesky_vps_wildcard" {
-  zone_id = "***REMOVED***"
+  zone_id = var.cloudflare_zone_id
   name = "*.bluesky"
   type = "A"
   comment = "Bluesky VPS wildcard DNS record"
@@ -18,7 +18,7 @@ resource "cloudflare_dns_record" "bluesky_vps_wildcard" {
 }
 
 resource "cloudflare_dns_record" "test" {
-  zone_id = "***REMOVED***"
+  zone_id = var.cloudflare_zone_id
   name = "test"
   type = "CNAME"
   comment = "Testing OpenTofu"
