@@ -1,5 +1,5 @@
 data/
 .DS_Store
 ssh_keys/
-terraform.tfvars
+*.tfvars*
 .terraform/
