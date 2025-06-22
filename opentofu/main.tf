@@ -1,14 +1,30 @@
 terraform {
-  required_providers {
-    proxmox = {
-      source  = "bpg/proxmox"
-    }
+	required_providers {
+		proxmox = {
+			source  = "bpg/proxmox"
+			version = "0.78.2"
+		}
+		cloudflare = {
+			source  = "cloudflare/cloudflare"
+			version = "~> 5"
+		}
   }
 }
 
 provider "proxmox" {
-  pm_api_url = "https://tower.mousses.xyz:8006/api2/json"
-  pm_api_token_id = "tofu@pam!opentou"
-  pm_api_token_secret = var.proxmox_tower_api_token_secret
-  pm_tls_insecure = true
+	endpoint = "https://kitty.mousses.xyz:8006/api2/json"
+	api_token = var.proxmox_kitty_api_token_pair
+	# self-signed TLS certificate is in use
+	insecure = true
+}
+
+provider "proxmox" {
+	endpoint = "https://tower.mousses.xyz:8006/api2/json"
+	api_token = var.proxmox_tower_api_token_pair
+	# self-signed TLS certificate is in use
+	insecure = true
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }
