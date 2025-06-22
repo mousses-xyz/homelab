@@ -1,0 +1,28 @@
+resource "cloudflare_dns_record" "bluesky_vps_root" {
+  zone_id = "***REMOVED***"
+  name = "bluesky"
+  type = "A"
+  comment = "Bluesky VPS root DNS record"
+  content = var.bluesky_vps_ipv4
+  proxied = false
+  ttl = 1
+}
+resource "cloudflare_dns_record" "bluesky_vps_wildcard" {
+  zone_id = "***REMOVED***"
+  name = "*.bluesky"
+  type = "A"
+  comment = "Bluesky VPS wildcard DNS record"
+  content = var.bluesky_vps_ipv4
+  proxied = false
+  ttl = 1
+}
+
+resource "cloudflare_dns_record" "test" {
+  zone_id = "***REMOVED***"
+  name = "test"
+  type = "CNAME"
+  comment = "Testing OpenTofu"
+  content = "gemini.google.com"
+  proxied = false
+  ttl = 1
+}
