@@ -8,8 +8,3 @@ variable "proxmox_tower_api_token_pair" {
 	sensitive = true
 	description = "The tower Proxmox API token."
 }
-variable "cloudflare_api_token" {
-	type = string
-	sensitive = true
-	description = "Cloudflare API token"
-}
