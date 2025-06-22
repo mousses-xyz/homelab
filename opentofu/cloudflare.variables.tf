@@ -13,6 +13,11 @@ variable "bluesky_vps_ipv4" {
 	sensitive = true
 	description = "IPv4 Address for my Bluesky VPS"
 }
+variable "minecraft_ipv4" {
+	type = string
+	sensitive = true
+	description = "IPv4 Address pointing to Minecraft server VM"
+}
 variable "testing_cname" {
 	type = string
 	sensitive = false
