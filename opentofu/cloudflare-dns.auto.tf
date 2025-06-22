@@ -22,7 +22,7 @@ resource "cloudflare_dns_record" "test" {
   name = "test"
   type = "CNAME"
   comment = "Testing OpenTofu"
-  content = "gemini.google.com"
+  content = var.testing_cname
   proxied = false
   ttl = 1
 }
