@@ -1,2 +1,3 @@
-# homelab
- Scripts for setting up a homelab
+# Homelab
+
+This is a repository containing all of my homelab code.
