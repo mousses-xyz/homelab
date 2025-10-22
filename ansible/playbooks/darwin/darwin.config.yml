@@ -75,6 +75,7 @@ brew_formulae_and_casks:
   - localsend
   # - logitech-options
   - logi-options+
+  - proton-mail
   - signal
   - spotify
   - the-unarchiver
@@ -302,8 +303,9 @@ dock_items:
   # - "/Applications/Launchpad.app"
   - "/Applications/Brave Browser.app"
   # - "/Applications/Thunderbird.app"
-  - "/Applications/Calendar.app"
-  - "/Applications/Mail.app"
+  # - "/Applications/Calendar.app"
+  # - "/Applications/Mail.app"
+  - "/Applications/Proton Mail.app"
   - "/Applications/Utilities/Terminal.app"
   - "/Applications/Visual Studio Code.app"
   - "/Applications/LibreOffice.app"
