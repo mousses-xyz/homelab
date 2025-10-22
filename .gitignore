@@ -3,3 +3,5 @@ data/
 ssh_keys/
 *.tfvars*
 .terraform/
+*.tfstate*
+.terraform.lock.hcl
