@@ -43,3 +43,13 @@ variable "proxmox_secondary_node_backup_ipv4_reserved_fourth_number" {
 	sensitive = true
 	description = "Fourth number in IPv4 Address. For example Y when x.x.x.Y is the address."
 }
+
+variable "domain_name" {
+	type = string
+	description = "Registered domain name to use for hosts, services, proxies, etc."
+}
+
+variable "lan_ipv4_prefix" {
+	type = string
+	description = "Subnet in IPv4 space. X-es in X.X.X.y address space."
+}

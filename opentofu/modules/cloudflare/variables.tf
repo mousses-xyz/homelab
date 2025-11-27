@@ -52,3 +52,18 @@ variable "cloudflare_dns_bluesky_vps_ipv4" {
 	sensitive = true
 	description = "IPv4 Address for my Bluesky VPS."
 }
+
+variable "domain_name" {
+	type = string
+	description = "Registered domain name to use for hosts, services, proxies, etc."
+}
+
+variable "lab_ipv4_address" {
+	type = string
+	description = "Public IPv4 address of lab"
+}
+
+variable "lab_ipv6_prefix" {
+	type = string
+	description = "Public IPv6 prefix for lab"
+}
