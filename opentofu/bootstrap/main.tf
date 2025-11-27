@@ -1,19 +1,4 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-  # Backend will be configured after initial apply
-  backend "s3" {
-    bucket         = "peter-mousses-homelab-tf-state"
-    key            = "bootstrap/terraform.tfstate"
-    region         = "us-east-2"
-    encrypt        = true
-    use_lockfile   = true
-  }
-}
+
 
 provider "aws" {
   region = "us-east-2"
