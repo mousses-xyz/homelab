@@ -1,7 +1,4 @@
-variable "proxmox_password" {
-	description = "Password for the Proxmox user."
-	sensitive   = true
-}
+
 
 variable "smb_server" {
 	description = "The IP address or hostname of the SMB server."
