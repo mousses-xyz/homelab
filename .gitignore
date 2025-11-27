@@ -5,3 +5,4 @@ ssh_keys/
 .terraform/
 *.tfstate*
 .terraform.lock.hcl
+.env
