@@ -3,7 +3,7 @@ include "root" {
 }
 
 terraform {
-  source = "../../modules/cloudflare"
+  source = "../modules/cloudflare"
 
   extra_arguments "custom_vars" {
     commands = [
@@ -16,8 +16,8 @@ terraform {
     ]
 
     arguments = [
-      "-var-file=${get_terragrunt_dir()}/common.auto.tfvars",
-      "-var-file=${get_terragrunt_dir()}/auto.tfvars"
+      "-var-file=${get_terragrunt_dir()}/../modules/auto.tfvars",
+      "-var-file=${get_terragrunt_dir()}/../modules/cloudflare/auto.tfvars"
     ]
   }
 }
