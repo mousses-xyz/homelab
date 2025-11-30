@@ -3,3 +3,4 @@ data/
 ssh_keys/
 *.tfvars*
 .terraform/
+.terragrunt-cache/
