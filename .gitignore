@@ -3,4 +3,8 @@ data/
 ssh_keys/
 *.tfvars*
 .terraform/
+*.tfstate*
+.terraform.lock.hcl
+.env
+.terragrunt-cache
 .terragrunt-cache/
