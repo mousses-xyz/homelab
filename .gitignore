@@ -7,3 +7,4 @@ ssh_keys/
 .terraform.lock.hcl
 .env
 .terragrunt-cache
+.terragrunt-cache/
