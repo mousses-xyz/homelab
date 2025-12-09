@@ -18,7 +18,7 @@ resource "proxmox_virtual_environment_network_linux_bridge" "WAN1" {
 	node_name	= var.proxmox_secondary_node_name
 	name		= "WAN1"
 	comment		= "SFP+ further from PCIe"
-	autostart	= true
+	autostart	= false
 	vlan_aware	= true
 	ports = [
 		# Network (or VLAN) interfaces to attach to the bridge, specified by their interface name
@@ -33,7 +33,7 @@ resource "proxmox_virtual_environment_network_linux_bridge" "Mobo" {
 	name		= "Mobo"
 	address		= "${var.lan_ipv4_prefix}.${var.proxmox_secondary_node_backup_ipv4_reserved_fourth_number}/24"
 	comment		= "Motherboard RJ45"
-	autostart	= true
+	autostart	= false
 	vlan_aware	= true
 	ports = [
 		# Network (or VLAN) interfaces to attach to the bridge, specified by their interface name
