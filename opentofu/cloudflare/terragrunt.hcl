@@ -5,19 +5,12 @@ include "root" {
 terraform {
   source = "../modules/cloudflare"
 
-  extra_arguments "custom_vars" {
-    commands = [
-      "apply",
-      "plan",
-      "import",
-      "push",
-      "refresh",
-      "destroy"
-    ]
+  extra_arguments "auto_tfvars" {
+    commands = get_terraform_commands_that_need_vars()
 
-    arguments = [
-      "-var-file=${get_terragrunt_dir()}/../modules/auto.tfvars",
-      "-var-file=${get_terragrunt_dir()}/../modules/cloudflare/auto.tfvars"
+    optional_var_files = [
+      "${get_parent_terragrunt_dir()}/modules/auto.tfvars",
+      "${get_parent_terragrunt_dir()}/modules/cloudflare/auto.tfvars"
     ]
   }
 }
@@ -30,8 +23,4 @@ provider "cloudflare" {
   api_token = var.cloudflare_api_token
 }
 EOF
-}
-
-inputs = {
-  # Inputs will be picked up from *.tfvars or env vars
 }
