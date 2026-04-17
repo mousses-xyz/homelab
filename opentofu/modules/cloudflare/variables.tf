@@ -47,12 +47,6 @@ variable "cloudflare_access_semi_open_group_id" {
 	description = "Semi-open Cloudflare Access Group ID."
 }
 
-variable "cloudflare_dns_bluesky_vps_ipv4" {
-	type = string
-	sensitive = true
-	description = "IPv4 Address for my Bluesky VPS."
-}
-
 variable "domain_name" {
 	type = string
 	description = "Registered domain name to use for hosts, services, proxies, etc."
@@ -66,4 +60,14 @@ variable "lab_ipv4_address" {
 variable "lab_ipv6_prefix" {
 	type = string
 	description = "Public IPv6 prefix for lab"
+}
+
+variable "lan_ipv4_prefix" {
+	type = string
+	description = "LAN IPv4 prefix"
+}
+
+variable "lab_ipv6_prefix_size" {
+	type = string
+	description = "Public IPv6 prefix size for lab"
 }
