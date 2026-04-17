@@ -46,6 +46,28 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "cloudflare_tunnel_ho
 				}
 			},
 			{
+				hostname = "jellyfin.${var.domain_name}"
+				service = "https://jellyfin.omv.${var.domain_name}"
+				origin_request = {
+					no_tls_verify = true
+					http_host_header = "jellyfin.omv.${var.domain_name}"
+					access = {
+						aud_tag = [cloudflare_zero_trust_access_application.cloudflare_access_application_jellyfin.aud]
+						team_name = var.cloudflare_access_team_name
+					}
+				}
+			},
+			{
+				hostname = "homeassistant.${var.domain_name}"
+				service = "http://10.12.10.4:8123"
+				origin_request = {
+					access = {
+						aud_tag = [cloudflare_zero_trust_access_application.cloudflare_access_application_minecraft_map.aud]
+						team_name = var.cloudflare_access_team_name
+					}
+				}
+			},
+			{
 				service = "http_status:404"
 			}
 		]
