@@ -205,6 +205,9 @@ resource "cloudflare_zero_trust_access_application" "cloudflare_access_applicati
 		{
 			id = cloudflare_zero_trust_access_policy.cloudflare_family_access_policy.id
 		},
+		{
+			id = cloudflare_zero_trust_access_policy.cloudflare_semi_open_access_policy.id
+		},
 	]
 	allow_authenticate_via_warp = false
 	allow_iframe = true
