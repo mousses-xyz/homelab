@@ -16,6 +16,24 @@ resource "cloudflare_dns_record" "bluesky_vps_wildcard_ipv4" {
 	proxied = false
 	ttl = 1
 }
+resource "cloudflare_dns_record" "bluesky_vps_root_ipv6" {
+	zone_id = var.cloudflare_zone_id
+	name = "bluesky.${var.domain_name}"
+	type = "AAAA"
+	comment = "Bluesky VPS root DNS record IPv6."
+	content = var.lab_ipv6_prefix
+	proxied = false
+	ttl = 1
+}
+resource "cloudflare_dns_record" "bluesky_vps_wildcard_ipv6" {
+	zone_id = var.cloudflare_zone_id
+	name = "*.bluesky.${var.domain_name}"
+	type = "AAAA"
+	comment = "Bluesky VPS wildcard DNS record IPv6."
+	content = var.lab_ipv6_prefix
+	proxied = false
+	ttl = 1
+}
 
 resource "cloudflare_dns_record" "minecraft_root_ipv4" {
 	zone_id = var.cloudflare_zone_id
