@@ -7,11 +7,11 @@ remote_state {
     if_exists = "overwrite_terragrunt"
   }
   config = {
-    bucket         = "peter-mousses-homelab-tf-state"
-    key            = "${path_relative_to_include()}/terraform.tfstate"
-    region         = "us-east-2"
-    encrypt        = true
-    use_lockfile   = true
+    bucket       = "peter-mousses-homelab-tf-state"
+    key          = "${path_relative_to_include()}/terraform.tfstate"
+    region       = "us-east-2"
+    encrypt      = true
+    use_lockfile = true
   }
 }
 
@@ -37,6 +37,10 @@ terraform {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 5.0"
+    }
+    unifi = {
+      source  = "BadgerOps/unifi"
+      version = "0.2.15"
     }
   }
 }
