@@ -17,3 +17,9 @@ unifi_allow_insecure = true
 
 # Raise to 300 if applies time out while UniFi reprovisions devices.
 unifi_request_timeout_seconds = 30
+
+# WiFi passphrases for the imported broadcasts.
+unifi_wifi_passphrase_fbi_van_3             = "replace-with-passphrase"
+unifi_wifi_passphrase_fbi_van_4             = "replace-with-passphrase"
+unifi_wifi_passphrase_onlylans              = "replace-with-passphrase"
+unifi_wifi_passphrase_tell_my_wifi_love_her = "replace-with-passphrase"

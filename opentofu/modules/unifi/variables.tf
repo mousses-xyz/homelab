@@ -37,3 +37,27 @@ variable "unifi_request_timeout_seconds" {
   default     = 30
   description = "Per-request HTTP timeout in seconds. Raise this (for example to 300) when UniFi reprovisions devices mid-apply and requests time out."
 }
+
+variable "unifi_wifi_passphrase_fbi_van_3" {
+  type        = string
+  sensitive   = true
+  description = "Passphrase for the 'FBI Surveillence Van #3' WiFi broadcast."
+}
+
+variable "unifi_wifi_passphrase_fbi_van_4" {
+  type        = string
+  sensitive   = true
+  description = "Passphrase for the 'FBI Surveillance Van #4' WiFi broadcast."
+}
+
+variable "unifi_wifi_passphrase_onlylans" {
+  type        = string
+  sensitive   = true
+  description = "Passphrase for the 'OnlyLANs' WiFi broadcast."
+}
+
+variable "unifi_wifi_passphrase_tell_my_wifi_love_her" {
+  type        = string
+  sensitive   = true
+  description = "Passphrase for the 'Tell_my_WiFi_love_her' WiFi broadcast."
+}

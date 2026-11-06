@@ -32,12 +32,36 @@ terragrunt init
 terragrunt plan
 ```
 
-The current configuration only reads the `Default` site, so a successful plan
-confirms the provider, URL, API key, and TLS settings all work. Add resources
-to `../modules/unifi` once that is verified.
+## Managed resources
+
+The unit currently manages:
+
+- 3 user-defined networks: `IoT`, `Guest`, `AI`
+- 4 WiFi broadcasts
+- 6 user-defined firewall policies and their ordering
+- 13 DNS policies
+- 7 traffic matching lists
+- 2 port forwards (Minecraft Java and Bedrock)
+- 18 DHCP reservations (MAC → fixed IP)
+
+The default `LAN` network and all six built-in firewall zones are referenced
+through data sources instead of being managed. `LAN` is system-defined and the
+provider cannot round-trip its `dhcp_guarding` field, which otherwise causes a
+perpetual diff that cascades into firewall policies referencing it. Built-in
+firewall zones are locked by UniFi and must not be managed as resources.
+
+The `Bluesky` port forward is intentionally unmanaged: it uses
+`pfwd_interface = "all"`, which this provider version cannot represent (it
+accepts only `wan`, `wan2`, or `both`).
+
+State is stored in S3 at
+`s3://peter-mousses-homelab-tf-state/unifi/terraform.tfstate`.
 
 ## Notes
 
+- WiFi passphrases are supplied from `auto.tfvars` via the
+  `unifi_wifi_passphrase_*` variables. They are stored in OpenTofu state, so the
+  S3 bucket is encrypted and access-controlled.
 - `unifi_allow_insecure` defaults to `true` because the UDR7 presents a
   self-signed certificate on its LAN address.
 - If the console stops answering during an apply, raise
