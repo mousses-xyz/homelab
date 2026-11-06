@@ -122,3 +122,14 @@ resource "cloudflare_dns_record" "tunnel_homeassistant" {
 	proxied = true
 	ttl = 1
 }
+
+# GitHub Pages
+resource "cloudflare_dns_record" "github_pages" {
+	zone_id = var.cloudflare_zone_id
+	name = "peter"
+	type = "CNAME"
+	comment = "GitHub Pages user site"
+	content = "petermousses.github.io"
+	proxied = false
+	ttl = 1
+}
