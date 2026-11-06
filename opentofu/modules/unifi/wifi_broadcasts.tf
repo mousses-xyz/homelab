@@ -1,5 +1,6 @@
 # WiFi broadcasts. Passphrases are supplied via gitignored auto.tfvars.
 
+# Guest SSID 'FBI Surveillence Van #3' bound to the Guest VLAN.
 resource "unifi_wifi_broadcast" "fbi_van_3" {
   advertise_device_name                   = false
   arp_proxy_enabled                       = false
@@ -41,6 +42,7 @@ resource "unifi_wifi_broadcast" "fbi_van_3" {
   uapsd_enabled = false
 }
 
+# Primary SSID 'Tell_my_WiFi_love_her' on the native LAN network.
 resource "unifi_wifi_broadcast" "tell_my_wifi_love_her" {
   advertise_device_name                   = false
   arp_proxy_enabled                       = false
@@ -82,6 +84,7 @@ resource "unifi_wifi_broadcast" "tell_my_wifi_love_her" {
   uapsd_enabled = false
 }
 
+# Disabled secondary SSID 'FBI Surveillance Van #4' on the native network.
 resource "unifi_wifi_broadcast" "fbi_van_4" {
   advertise_device_name                   = false
   arp_proxy_enabled                       = false
@@ -123,6 +126,7 @@ resource "unifi_wifi_broadcast" "fbi_van_4" {
   uapsd_enabled = false
 }
 
+# 2.4 GHz IoT SSID 'OnlyLANs' bound to the IoT VLAN.
 resource "unifi_wifi_broadcast" "onlylans" {
   advertise_device_name                   = false
   arp_proxy_enabled                       = false

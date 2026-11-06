@@ -1,10 +1,11 @@
 # User-defined firewall policies only. UniFi system/derived policies are not managed.
 
+# Allow LAN clients to reach IoT trusted services.
 resource "unifi_firewall_policy" "home_assistant_comms_2" {
   action                  = "ALLOW"
   allow_return_traffic    = true
   connection_state_filter = null
-  description             = ""
+  description             = "Allow LAN clients to reach IoT trusted services"
   destination_filter = {
     application_category_ids            = null
     application_ids                     = null
@@ -57,11 +58,12 @@ resource "unifi_firewall_policy" "home_assistant_comms_2" {
   source_zone_id = data.unifi_firewall_zone.internal.id
 }
 
+# Allow the Home Assistant Pi to reach the LAN.
 resource "unifi_firewall_policy" "home_assistant_comms" {
   action                  = "ALLOW"
   allow_return_traffic    = true
   connection_state_filter = null
-  description             = ""
+  description             = "Allow the Home Assistant Pi to reach the LAN"
   destination_filter = {
     application_category_ids            = null
     application_ids                     = null
@@ -114,11 +116,12 @@ resource "unifi_firewall_policy" "home_assistant_comms" {
   source_zone_id = data.unifi_firewall_zone.internal.id
 }
 
+# Allow LAN clients to reach the AI network.
 resource "unifi_firewall_policy" "talk_to_claude" {
   action                  = "ALLOW"
   allow_return_traffic    = true
   connection_state_filter = null
-  description             = ""
+  description             = "Allow LAN clients to reach the AI network"
   destination_filter = {
     application_category_ids            = null
     application_ids                     = null
@@ -171,11 +174,12 @@ resource "unifi_firewall_policy" "talk_to_claude" {
   source_zone_id = data.unifi_firewall_zone.internal.id
 }
 
+# Allow Home Assistant Pi WAN traffic for established/related connections.
 resource "unifi_firewall_policy" "home_assistant_wan" {
   action                  = "ALLOW"
   allow_return_traffic    = false
   connection_state_filter = ["ESTABLISHED", "RELATED"]
-  description             = ""
+  description             = "Allow Home Assistant Pi WAN traffic (established/related)"
   destination_filter      = null
   destination_zone_id     = data.unifi_firewall_zone.external.id
   enabled                 = true
@@ -209,11 +213,12 @@ resource "unifi_firewall_policy" "home_assistant_wan" {
   source_zone_id = data.unifi_firewall_zone.internal.id
 }
 
+# Allow the Matter Hub outbound to WAN.
 resource "unifi_firewall_policy" "matter_hub" {
   action                  = "ALLOW"
   allow_return_traffic    = false
   connection_state_filter = null
-  description             = ""
+  description             = "Allow the Matter Hub outbound to WAN"
   destination_filter      = null
   destination_zone_id     = data.unifi_firewall_zone.external.id
   enabled                 = true
@@ -247,11 +252,12 @@ resource "unifi_firewall_policy" "matter_hub" {
   source_zone_id = data.unifi_firewall_zone.internal.id
 }
 
+# Allow AI network clients to reach Red Queen.
 resource "unifi_firewall_policy" "claude_to_red_queen" {
   action                  = "ALLOW"
   allow_return_traffic    = true
   connection_state_filter = null
-  description             = ""
+  description             = "Allow AI network clients to reach Red Queen"
   destination_filter = {
     application_category_ids            = null
     application_ids                     = null

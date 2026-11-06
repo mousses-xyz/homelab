@@ -1,5 +1,6 @@
 # Networks managed through the UniFi Integration API.
 
+# AI workload VLAN (VLAN 4, 10.7.27.0/24).
 resource "unifi_network" "ai" {
   cellular_backup_enabled = true
   device_id               = null
@@ -32,6 +33,7 @@ resource "unifi_network" "ai" {
   zone_id                 = data.unifi_firewall_zone.internal.id
 }
 
+# IoT VLAN (VLAN 2, 10.12.10.0/24).
 resource "unifi_network" "iot" {
   cellular_backup_enabled = true
   device_id               = null
@@ -64,6 +66,7 @@ resource "unifi_network" "iot" {
   zone_id                 = data.unifi_firewall_zone.internal.id
 }
 
+# Guest VLAN (VLAN 3, 10.9.18.0/24).
 resource "unifi_network" "guest" {
   cellular_backup_enabled = true
   device_id               = null

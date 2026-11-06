@@ -1,6 +1,7 @@
 # Port forwards managed via the legacy local Network API.
 # The "Bluesky" rule uses pfwd_interface="all", which this provider cannot represent; left unmanaged.
 
+# Port forward: WAN TCP 25565 -> 10.9.20.14:25565 (Minecraft Java).
 resource "unifi_port_forward" "minecraft_java" {
   destination_port = "25565"
   enabled          = true
@@ -14,6 +15,7 @@ resource "unifi_port_forward" "minecraft_java" {
   wan_interface    = "wan"
 }
 
+# Port forward: WAN UDP 19132 -> 10.9.20.14:19132 (Minecraft Bedrock).
 resource "unifi_port_forward" "minecraft_bedrock" {
   destination_port = "19132"
   enabled          = true
