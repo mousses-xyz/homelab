@@ -40,7 +40,7 @@ terraform {
     }
     unifi = {
       source  = "BadgerOps/unifi"
-      version = "0.2.15"
+      version = "~> 0.5"
     }
   }
 }

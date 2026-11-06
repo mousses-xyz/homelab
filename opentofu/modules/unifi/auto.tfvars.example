@@ -1,0 +1,19 @@
+# Copy to auto.tfvars and fill in values from the UDR7:
+#   Settings -> Control Plane -> Integrations -> create an API key
+#
+# auto.tfvars is gitignored; never commit the real API key.
+
+# Local console URLs need the /proxy/network path; the provider only appends
+# /integration to whatever base URL it is given.
+unifi_api_url = "https://192.168.1.1/proxy/network/integration"
+
+unifi_api_key = "replace-with-unifi-integration-api-key"
+
+unifi_site_name = "Default"
+
+# The UDR7 uses a self-signed certificate on its LAN address.
+# Set this to false if you install a trusted certificate.
+unifi_allow_insecure = true
+
+# Raise to 300 if applies time out while UniFi reprovisions devices.
+unifi_request_timeout_seconds = 30
