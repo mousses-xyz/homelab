@@ -19,9 +19,10 @@ generate "provider" {
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 provider "unifi" {
-  api_url        = var.unifi_api_url
-  api_key        = var.unifi_api_key
-  allow_insecure = false
+  api_url                 = var.unifi_api_url
+  api_key                 = var.unifi_api_key
+  allow_insecure          = var.unifi_allow_insecure
+  request_timeout_seconds = var.unifi_request_timeout_seconds
 }
 EOF
 }

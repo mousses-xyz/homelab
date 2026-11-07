@@ -2,6 +2,7 @@ data/
 .DS_Store
 ssh_keys/
 *.tfvars*
+!*.tfvars.example
 .terraform/
 *.tfstate*
 .terraform.lock.hcl
