@@ -31,6 +31,11 @@ variable "cloudflare_tunnel_secret" {
 	description = "Cloudflare tunnel secret."
 }
 
+variable "github_pages_subdomains" {
+  type = set(string)
+  default = ["peter"]
+}
+
 variable "cloudflare_access_team_name" {
 	type = string
 	sensitive = true
