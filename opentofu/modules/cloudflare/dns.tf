@@ -125,11 +125,12 @@ resource "cloudflare_dns_record" "tunnel_homeassistant" {
 
 # GitHub Pages
 resource "cloudflare_dns_record" "github_pages" {
+  for_each = var.github_pages_subdomains
 	zone_id = var.cloudflare_zone_id
-	name = "peter"
+	name = each.value
 	type = "CNAME"
-	comment = "GitHub Pages user site"
-	content = "petermousses.github.io"
+  comment = "GitHub Pages site: ${each.value}.${var.domain_name}"
+	content = "mousses-xyz.github.io"
 	proxied = false
 	ttl = 1
 }
