@@ -124,6 +124,10 @@ resource "cloudflare_dns_record" "tunnel_homeassistant" {
 }
 
 # GitHub Pages
+# The root and www records point at the GitHub Pages org hostname. GitHub
+# routes requests by Host header, so mousses.xyz serves the website-root site
+# and peter.mousses.xyz serves the peter site. Cloudflare flattens the apex
+# CNAME automatically.
 resource "cloudflare_dns_record" "github_pages" {
   for_each = var.github_pages_subdomains
 	zone_id = var.cloudflare_zone_id
