@@ -309,3 +309,55 @@ resource "unifi_firewall_policy" "claude_to_red_queen" {
   }
   source_zone_id = data.unifi_firewall_zone.internal.id
 }
+
+# Allow external IPv6 clients to reach the Bluesky PDS on TCP 80/443.
+# Matching on the IID (address plus low-64-bit mask) keeps the rule valid when
+# the delegated prefix changes.
+resource "unifi_firewall_policy" "bluesky_ipv6" {
+  action                  = "ALLOW"
+  allow_return_traffic    = true
+  connection_state_filter = null
+  description             = "Allow external IPv6 clients to reach the Bluesky PDS"
+  destination_filter = {
+    application_category_ids            = null
+    application_ids                     = null
+    domains                             = null
+    ip_address_match_opposite           = null
+    ip_address_traffic_matching_list_id = null
+    ip_addresses                        = null
+    ipv6_iid                            = "::be24:11ff:febb:f8d5/::ffff:ffff:ffff:ffff"
+    ipv6_iid_match_opposite             = false
+    mac_address                         = null
+    mac_addresses                       = null
+    network_ids                         = null
+    network_match_opposite              = null
+    port_filter = {
+      match_opposite           = false
+      ports                    = ["80", "443"]
+      traffic_matching_list_id = null
+      type                     = "PORTS"
+    }
+    region_codes               = null
+    site_to_site_vpn_tunnel_id = null
+    type                       = "IPV6_IID"
+    vpn_server_ids             = null
+    vpn_server_match_opposite  = null
+  }
+  destination_zone_id = data.unifi_firewall_zone.internal.id
+  enabled             = true
+  ip_version          = "IPV6"
+  ipsec_filter        = null
+  logging_enabled     = false
+  name                = "Bluesky IPv6"
+  protocol_filter = {
+    match_opposite  = null
+    named_protocol  = null
+    preset_name     = "TCP_UDP"
+    protocol_number = null
+    type            = "PRESET"
+  }
+  schedule       = null
+  site_id        = data.unifi_site.main.id
+  source_filter  = null
+  source_zone_id = data.unifi_firewall_zone.external.id
+}

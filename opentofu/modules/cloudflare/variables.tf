@@ -62,17 +62,12 @@ variable "lab_ipv4_address" {
 	description = "Public IPv4 address of lab"
 }
 
-variable "lab_ipv6_prefix" {
+variable "udr7_wan_1" {
 	type = string
-	description = "Public IPv6 prefix for lab"
+	description = "UDR7 WAN1 IPv6 address. Not used for service DNS records."
 }
 
-variable "lan_ipv4_prefix" {
+variable "bluesky_public_ipv6" {
 	type = string
-	description = "LAN IPv4 prefix"
-}
-
-variable "lab_ipv6_prefix_size" {
-	type = string
-	description = "Public IPv6 prefix size for lab"
+	description = "Global IPv6 address of the Bluesky PDS."
 }

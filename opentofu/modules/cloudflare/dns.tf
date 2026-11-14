@@ -21,7 +21,7 @@ resource "cloudflare_dns_record" "bluesky_vps_root_ipv6" {
 	name = "bluesky.${var.domain_name}"
 	type = "AAAA"
 	comment = "Bluesky VM root DNS record IPv6."
-	content = var.lab_ipv6_prefix
+	content = var.bluesky_public_ipv6
 	proxied = false
 	ttl = 1
 }
@@ -30,7 +30,7 @@ resource "cloudflare_dns_record" "bluesky_vps_wildcard_ipv6" {
 	name = "*.bluesky.${var.domain_name}"
 	type = "AAAA"
 	comment = "Bluesky VM wildcard DNS record IPv6."
-	content = var.lab_ipv6_prefix
+	content = var.bluesky_public_ipv6
 	proxied = false
 	ttl = 1
 }
@@ -58,7 +58,7 @@ resource "cloudflare_dns_record" "minecraft_root_ipv6" {
 	name = "minecraft.${var.domain_name}"
 	type = "AAAA"
 	comment = "Minecraft server root DNS record IPv6."
-	content = var.lab_ipv6_prefix
+	content = var.udr7_wan_1
 	proxied = false
 	ttl = 1
 }
@@ -67,7 +67,7 @@ resource "cloudflare_dns_record" "minecraft_wildcard_ipv6" {
 	name = "*.minecraft.${var.domain_name}"
 	type = "AAAA"
 	comment = "Minecraft server wildcard DNS record IPv6."
-	content = var.lab_ipv6_prefix
+	content = var.udr7_wan_1
 	proxied = false
 	ttl = 1
 }

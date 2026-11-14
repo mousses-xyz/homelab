@@ -26,6 +26,12 @@ variable "unifi_site_name" {
   description = "Name of the UniFi site to manage."
 }
 
+variable "domain_name" {
+  type        = string
+  default     = "mousses.xyz"
+  description = "Registered domain name used for local DNS records."
+}
+
 variable "unifi_allow_insecure" {
   type        = bool
   default     = true

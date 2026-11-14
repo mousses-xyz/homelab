@@ -38,8 +38,8 @@ The unit currently manages:
 
 - 3 user-defined networks: `IoT`, `Guest`, `AI`
 - 4 WiFi broadcasts
-- 6 user-defined firewall policies and their ordering
-- 13 DNS policies
+- 7 user-defined firewall policies and their ordering
+- 24 DNS policies (A records for static-IPv4 devices not already in built-in local DNS, plus A/AAAA for Bluesky)
 - 7 traffic matching lists
 - 2 port forwards (Minecraft Java and Bedrock)
 - 18 DHCP reservations (MAC → fixed IP)
@@ -53,6 +53,26 @@ firewall zones are locked by UniFi and must not be managed as resources.
 The `Bluesky` port forward is intentionally unmanaged: it uses
 `pfwd_interface = "all"`, which this provider version cannot represent (it
 accepts only `wan`, `wan2`, or `both`).
+
+## LAN IPv6
+
+The `BadgerOps/unifi` provider does not expose LAN IPv6 settings, so the
+default `LAN` network is configured once in the UniFi UI (or through the
+legacy Network API):
+
+- **Interface Type:** Prefix Delegation
+- **Prefix Delegation Interface:** WAN
+- **Prefix ID:** `1`
+- **Additional IPs:** `fd00:beef:cafe:1::1/64` (keeps the ULA prefix alive)
+- **Client Address Assignment:** SLAAC
+- **Router Advertisement:** enabled, priority high
+
+The delegated prefix is dynamic. The `Bluesky IPv6` firewall policy matches the
+PDS by its interface identifier (`be24:11ff:febb:f8d5`), so it survives prefix
+changes. Cloudflare AAAA records cannot follow the prefix automatically because
+DDNS is intentionally not configured: update `bluesky_public_ipv6` in
+`../auto.tfvars` and re-apply the `cloudflare` unit when the delegated prefix
+changes.
 
 State is stored in S3 at
 `s3://peter-mousses-homelab-tf-state/unifi/terraform.tfstate`.

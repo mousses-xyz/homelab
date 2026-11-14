@@ -272,3 +272,88 @@ resource "unifi_dns_policy" "dns_wildcard_minecraft_mousses_xyz" {
   type               = "A_RECORD"
   weight             = null
 }
+
+# Local DNS A records for devices with a static IPv4 DHCP reservation.
+#
+# Names already defined in UniFi's built-in local DNS (dns, homeassistant,
+# kitty, nas, omv, pds, switch, tower) are intentionally omitted: the
+# controller rejects explicit DNS policies that overlap with them.
+locals {
+  pds_ula = "fd00:beef:cafe:1:be24:11ff:febb:f8d5"
+
+  static_device_dns = {
+    teslacam      = "10.9.20.8"
+    aqara-hub     = "10.12.10.146"
+    minecraft-vm  = "10.9.20.11"
+    whale-pi      = "10.9.20.10"
+    gl-inet       = "10.9.20.9"
+    thesis        = "10.9.20.50"
+    anker-dock    = "10.9.20.6"
+    canon-printer = "10.12.10.2"
+    claude-1      = "10.7.27.6"
+  }
+}
+
+resource "unifi_dns_policy" "static_device" {
+  for_each = local.static_device_dns
+
+  domain             = "${each.key}.${var.domain_name}"
+  enabled            = true
+  ip_address         = null
+  ipv4_address       = each.value
+  ipv6_address       = null
+  mail_server_domain = null
+  port               = null
+  priority           = null
+  protocol           = null
+  server_domain      = null
+  service            = null
+  site_id            = data.unifi_site.main.id
+  target_domain      = null
+  text               = null
+  ttl_seconds        = 0
+  type               = "A_RECORD"
+  weight             = null
+}
+
+# Local DNS AAAA: bluesky.mousses.xyz -> PDS ULA.
+resource "unifi_dns_policy" "dns_bluesky_mousses_xyz_ipv6" {
+  domain             = "bluesky.${var.domain_name}"
+  enabled            = true
+  ip_address         = null
+  ipv4_address       = null
+  ipv6_address       = local.pds_ula
+  mail_server_domain = null
+  port               = null
+  priority           = null
+  protocol           = null
+  server_domain      = null
+  service            = null
+  site_id            = data.unifi_site.main.id
+  target_domain      = null
+  text               = null
+  ttl_seconds        = 0
+  type               = "AAAA_RECORD"
+  weight             = null
+}
+
+# Local DNS AAAA: *.bluesky.mousses.xyz -> PDS ULA.
+resource "unifi_dns_policy" "dns_wildcard_bluesky_mousses_xyz_ipv6" {
+  domain             = "*.bluesky.${var.domain_name}"
+  enabled            = true
+  ip_address         = null
+  ipv4_address       = null
+  ipv6_address       = local.pds_ula
+  mail_server_domain = null
+  port               = null
+  priority           = null
+  protocol           = null
+  server_domain      = null
+  service            = null
+  site_id            = data.unifi_site.main.id
+  target_domain      = null
+  text               = null
+  ttl_seconds        = 0
+  type               = "AAAA_RECORD"
+  weight             = null
+}

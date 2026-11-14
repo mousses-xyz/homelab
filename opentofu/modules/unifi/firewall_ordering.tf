@@ -27,3 +27,15 @@ resource "unifi_firewall_policy_ordering" "internal_external" {
   ]
   after_system_defined_policy_ids = []
 }
+
+# Order the user-defined External -> Internal policy before built-in rules.
+resource "unifi_firewall_policy_ordering" "external_internal" {
+  site_id             = data.unifi_site.main.id
+  source_zone_id      = data.unifi_firewall_zone.external.id
+  destination_zone_id = data.unifi_firewall_zone.internal.id
+
+  before_system_defined_policy_ids = [
+    unifi_firewall_policy.bluesky_ipv6.id,
+  ]
+  after_system_defined_policy_ids = []
+}
