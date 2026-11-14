@@ -5,19 +5,12 @@ include "root" {
 terraform {
   source = "../modules/proxmox"
 
-  extra_arguments "custom_vars" {
-    commands = [
-      "apply",
-      "plan",
-      "import",
-      "push",
-      "refresh",
-      "destroy"
-    ]
+  extra_arguments "auto_tfvars" {
+    commands = get_terraform_commands_that_need_vars()
 
-    arguments = [
-      "-var-file=${get_terragrunt_dir()}/../modules/auto.tfvars",
-      "-var-file=${get_terragrunt_dir()}/../modules/proxmox/auto.tfvars"
+    optional_var_files = [
+      "${get_parent_terragrunt_dir()}/modules/auto.tfvars",
+      "${get_parent_terragrunt_dir()}/modules/proxmox/auto.tfvars"
     ]
   }
 }
@@ -26,19 +19,14 @@ generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
+# Primary node (kitty)
 provider "proxmox" {
-  endpoint = local.proxmox_primary_node_api_url
+  endpoint  = local.proxmox_primary_node_api_url
   api_token = var.proxmox_primary_node_api_token
-  insecure = true
+  # Proxmox uses a self-signed certificate by default.
+  insecure  = true
 }
 
-# Secondary provider if needed, or handle within module logic
-# provider "proxmox" {
-#   alias = "secondary"
-#   endpoint = local.proxmox_secondary_node_api_url
-#   api_token = var.proxmox_secondary_node_api_token
-#   insecure = true
-# }
 EOF
 }
 

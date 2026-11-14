@@ -1,7 +1,7 @@
 # resource "proxmox_virtual_environment_vm" "ubuntu_template" {
 # 	# https://search.opentofu.org/provider/bpg/proxmox/latest/docs/guides/clone-vm
 # 	name        = "test-vm"
-# 	node_name = "tower"
+# 	node_name = var.proxmox_primary_node_name
 
 # 	template=true
 # 	started=false
@@ -43,14 +43,14 @@
 # 	}
 
 # 	network_device {
-# 		bridge = "LAN1"
+# 		bridge = "vmbr0"
 # 	}
 # }
 
 # resource "proxmox_virtual_environment_download_file" "ubuntu_cloud_image" {
 # 	content_type = "iso"
 # 	datastore_id = "local"
-# 	node_name    = "tower"
+# 	node_name    = var.proxmox_primary_node_name
 
 # 	url = "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
 # }

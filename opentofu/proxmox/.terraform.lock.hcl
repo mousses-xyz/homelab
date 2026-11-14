@@ -1,6 +1,24 @@
 # This file is maintained automatically by "tofu init".
 # Manual edits may be lost in future updates.
 
+provider "registry.opentofu.org/badgerops/unifi" {
+  version     = "0.5.5"
+  constraints = "~> 0.5"
+  hashes = [
+    "h1:CWcujRH3F/VSTHXTjllmRDXSfKZRizkPguVaV0CrzqM=",
+    "h1:F1t4Uo35fr5w0hlfrgAXyHp+qOOOXTZh5RG5/JrbQ4I=",
+    "h1:Fk6sg8ZyZ8U39yZrEAW1FcMNaIwez/VbtGda2imrHK4=",
+    "h1:KWEfgYmkWQzJSLSfNdgPWLnM+5/lHtVsz2e6zGD2Cqo=",
+    "h1:M+/AkQqJQHv8Uk3cLSovX1eyVdzo+M1sH738PQqv86Y=",
+    "zh:0f81ddb47f4db40f042847988038af0d7942f51fe56b8630a94d8eea3dab678a",
+    "zh:35c67691d8d2f2507e96b4fc77278bc3cb9f3c63d6d9cce5edfb273dac20dba0",
+    "zh:39d6949080125e49f6e14eaae90522c85adbf04cd88bb56327485b93d6ba8432",
+    "zh:bfc2c1224f799575e39655ab327200a738c150a238be171360d8863f13164d9c",
+    "zh:f26e0763dbe6a6b2195c94b44696f2110f7f55433dc142839be16b9697fa5597",
+    "zh:fd07ba69e1c0da6d3f1aa6299469dba1d8d24186a8415548b75ef7145074eb04",
+  ]
+}
+
 provider "registry.opentofu.org/bpg/proxmox" {
   version     = "0.78.2"
   constraints = "0.78.2"
