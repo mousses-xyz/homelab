@@ -39,7 +39,7 @@ The unit currently manages:
 - 3 user-defined networks: `IoT`, `Guest`, `AI`
 - 4 WiFi broadcasts
 - 7 user-defined firewall policies and their ordering
-- 24 DNS policies (A records for static-IPv4 devices not already in built-in local DNS, plus A/AAAA for Bluesky)
+- 35 DNS policies (A/AAAA records for static-IPv4 and manually-defined names)
 - 7 traffic matching lists
 - 2 port forwards (Minecraft Java and Bedrock)
 - 18 DHCP reservations (MAC → fixed IP)
@@ -73,6 +73,11 @@ changes. Cloudflare AAAA records cannot follow the prefix automatically because
 DDNS is intentionally not configured: update `bluesky_public_ipv6` in
 `../auto.tfvars` and re-apply the `cloudflare` unit when the delegated prefix
 changes.
+
+Local AAAA records for manually-defined names use the VLAN ULA prefix with the
+IPv4 address encoded in the interface identifier, for example
+`router.mousses.xyz` resolves to `10.9.20.1` and
+`fd00:beef:cafe:1:10:9:20:1`.
 
 State is stored in S3 at
 `s3://peter-mousses-homelab-tf-state/unifi/terraform.tfstate`.

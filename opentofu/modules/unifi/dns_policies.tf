@@ -357,3 +357,48 @@ resource "unifi_dns_policy" "dns_wildcard_bluesky_mousses_xyz_ipv6" {
   type               = "AAAA_RECORD"
   weight             = null
 }
+
+# AAAA counterparts for the manually-defined A records above.
+#
+# The LAN ULA IID encodes the IPv4 address, for example:
+#   10.9.20.1 -> fd00:beef:cafe:1:10:9:20:1
+#
+# Bluesky is omitted because its existing AAAA records point at the PDS's
+# actual SLAAC ULA, which is already reachable by local IPv6 clients.
+locals {
+  manual_dns_ipv6 = {
+    "*.tower.mousses.xyz"     = "fd00:beef:cafe:1:10:9:20:7"
+    "router.mousses.xyz"      = "fd00:beef:cafe:1:10:9:20:1"
+    "*.local.mousses.xyz"     = "fd00:beef:cafe:1:10:9:20:2"
+    "*.pds.mousses.xyz"       = "fd00:beef:cafe:1:10:9:20:12"
+    "*.redqueen.mousses.xyz"  = "fd00:beef:cafe:1:10:9:20:242"
+    "*.omv.mousses.xyz"       = "fd00:beef:cafe:1:10:9:20:14"
+    "minecraft.mousses.xyz"   = "fd00:beef:cafe:1:10:9:20:14"
+    "redqueen.mousses.xyz"    = "fd00:beef:cafe:1:10:9:20:242"
+    "local.mousses.xyz"       = "fd00:beef:cafe:1:10:9:20:2"
+    "*.nas.mousses.xyz"       = "fd00:beef:cafe:1:10:9:20:2"
+    "*.minecraft.mousses.xyz" = "fd00:beef:cafe:1:10:9:20:14"
+  }
+}
+
+resource "unifi_dns_policy" "manual_dns_ipv6" {
+  for_each = local.manual_dns_ipv6
+
+  domain             = each.key
+  enabled            = true
+  ip_address         = null
+  ipv4_address       = null
+  ipv6_address       = each.value
+  mail_server_domain = null
+  port               = null
+  priority           = null
+  protocol           = null
+  server_domain      = null
+  service            = null
+  site_id            = data.unifi_site.main.id
+  target_domain      = null
+  text               = null
+  ttl_seconds        = 0
+  type               = "AAAA_RECORD"
+  weight             = null
+}
