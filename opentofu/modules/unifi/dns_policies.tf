@@ -168,6 +168,54 @@ resource "unifi_dns_policy" "dns_wildcard_omv_mousses_xyz" {
   weight             = null
 }
 
+# OMV migration test: explicit root A/AAAA records.
+#
+# The client-level "Local DNS Record" for OMV must be cleared before applying
+# this, otherwise the controller rejects the A record with
+# api.dns.policy.validation.overlap-with-local-dns.
+#
+# The AAAA uses OMV's current stable SLAAC ULA (EUI-64), not the IPv4-encoded
+# convention. Revisit the convention after this migration is verified.
+resource "unifi_dns_policy" "dns_omv_mousses_xyz" {
+  domain             = "omv.${var.domain_name}"
+  enabled            = true
+  ip_address         = null
+  ipv4_address       = "10.9.20.14"
+  ipv6_address       = null
+  mail_server_domain = null
+  port               = null
+  priority           = null
+  protocol           = null
+  server_domain      = null
+  service            = null
+  site_id            = data.unifi_site.main.id
+  target_domain      = null
+  text               = null
+  ttl_seconds        = 0
+  type               = "A_RECORD"
+  weight             = null
+}
+
+resource "unifi_dns_policy" "dns_omv_mousses_xyz_ipv6" {
+  domain             = "omv.${var.domain_name}"
+  enabled            = true
+  ip_address         = null
+  ipv4_address       = null
+  ipv6_address       = "fd00:beef:cafe:1:365a:60ff:fe01:7071"
+  mail_server_domain = null
+  port               = null
+  priority           = null
+  protocol           = null
+  server_domain      = null
+  service            = null
+  site_id            = data.unifi_site.main.id
+  target_domain      = null
+  text               = null
+  ttl_seconds        = 0
+  type               = "AAAA_RECORD"
+  weight             = null
+}
+
 # DNS A record: minecraft.mousses.xyz -> 10.9.20.14.
 resource "unifi_dns_policy" "dns_minecraft_mousses_xyz" {
   domain             = "minecraft.mousses.xyz"
