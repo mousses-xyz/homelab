@@ -63,6 +63,31 @@ resource "unifi_dns_policy" "dns_wildcard_local_mousses_xyz" {
   weight             = null
 }
 
+# DNS A record: pds.mousses.xyz -> 10.9.20.14.
+#
+# The old PDS VM's client-level Local DNS Record for pds.mousses.xyz must be
+# cleared before applying this. Otherwise the controller rejects the explicit
+# record with api.dns.policy.validation.overlap-with-local-dns.
+resource "unifi_dns_policy" "dns_pds_mousses_xyz" {
+  domain             = "pds.${var.domain_name}"
+  enabled            = true
+  ip_address         = null
+  ipv4_address       = "10.9.20.14"
+  ipv6_address       = null
+  mail_server_domain = null
+  port               = null
+  priority           = null
+  protocol           = null
+  server_domain      = null
+  service            = null
+  site_id            = data.unifi_site.main.id
+  target_domain      = null
+  text               = null
+  ttl_seconds        = 0
+  type               = "A_RECORD"
+  weight             = null
+}
+
 # DNS A record: *.pds.mousses.xyz -> 10.9.20.14.
 resource "unifi_dns_policy" "dns_wildcard_pds_mousses_xyz" {
   domain             = "*.pds.mousses.xyz"
@@ -324,8 +349,11 @@ resource "unifi_dns_policy" "dns_wildcard_minecraft_mousses_xyz" {
 # Local DNS A records for devices with a static IPv4 DHCP reservation.
 #
 # Names already defined in UniFi's built-in local DNS (dns, homeassistant,
-# kitty, nas, omv, pds, switch, tower) are intentionally omitted: the
-# controller rejects explicit DNS policies that overlap with them.
+# kitty, nas, omv, switch, tower) are intentionally omitted: the controller
+# rejects explicit DNS policies that overlap with them.
+#
+# pds.mousses.xyz is defined explicitly above; its former client-level local
+# DNS record must be cleared on the old PDS client before applying.
 locals {
   static_device_dns = {
     teslacam      = "10.9.20.8"

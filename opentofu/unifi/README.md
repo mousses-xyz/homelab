@@ -39,7 +39,7 @@ The unit currently manages:
 - 3 user-defined networks: `IoT`, `Guest`, `AI`
 - 4 WiFi broadcasts
 - 7 user-defined firewall policies and their ordering
-- 32 DNS policies (A/AAAA records for static-IPv4 and manually-defined names)
+- 33 DNS policies (A/AAAA records for static-IPv4 and manually-defined names)
 - 7 traffic matching lists
 - 2 port forwards (Minecraft Java and Bedrock)
 - 18 DHCP reservations (MAC → fixed IP)
@@ -91,3 +91,6 @@ State is stored in S3 at
   `unifi_request_timeout_seconds` (for example to `300`).
 - The provider does not read `UNIFI_API_URL` / `UNIFI_API_KEY` from the
   environment; values must come from `auto.tfvars`.
+- `pds.mousses.xyz` is now an explicit static record pointing at Traefik. Clear
+  the old PDS client's built-in Local DNS Record before applying, or the
+  controller rejects the explicit record as an overlap.
