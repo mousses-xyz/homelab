@@ -69,5 +69,5 @@ variable "udr7_wan_1" {
 
 variable "bluesky_public_ipv6" {
 	type = string
-	description = "Global IPv6 address of the Bluesky PDS."
+	description = "Legacy Bluesky PDS global IPv6. No longer used after the PDS moved to Kubernetes; retained because the local auto.tfvars still supplies it."
 }

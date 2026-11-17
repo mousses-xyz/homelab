@@ -39,7 +39,7 @@ The unit currently manages:
 - 3 user-defined networks: `IoT`, `Guest`, `AI`
 - 4 WiFi broadcasts
 - 7 user-defined firewall policies and their ordering
-- 35 DNS policies (A/AAAA records for static-IPv4 and manually-defined names)
+- 32 DNS policies (A/AAAA records for static-IPv4 and manually-defined names)
 - 7 traffic matching lists
 - 2 port forwards (Minecraft Java and Bedrock)
 - 18 DHCP reservations (MAC → fixed IP)
@@ -67,15 +67,13 @@ legacy Network API):
 - **Client Address Assignment:** SLAAC
 - **Router Advertisement:** enabled, priority high
 
-The delegated prefix is dynamic. The `Bluesky IPv6` firewall policy matches the
-PDS by its interface identifier (`be24:11ff:febb:f8d5`), so it survives prefix
-changes. Cloudflare AAAA records cannot follow the prefix automatically because
-DDNS is intentionally not configured: update `bluesky_public_ipv6` in
-`../auto.tfvars` and re-apply the `cloudflare` unit when the delegated prefix
-changes.
+The delegated prefix is dynamic. The PDS now runs in k3s behind Traefik and uses
+the public IPv4 `A` record. Its public and local AAAA records were removed during
+that migration. The legacy `Bluesky IPv6` firewall policy may remain until a
+separate cleanup; it is no longer needed for the PDS ingress path.
 
-Local AAAA records for manually-defined names use the VLAN ULA prefix with the
-IPv4 address encoded in the interface identifier, for example
+Local AAAA records for the remaining manually-defined names use the VLAN ULA
+prefix with the IPv4 address encoded in the interface identifier, for example
 `router.mousses.xyz` resolves to `10.9.20.1` and
 `fd00:beef:cafe:1:10:9:20:1`.
 

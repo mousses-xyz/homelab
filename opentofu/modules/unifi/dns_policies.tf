@@ -63,12 +63,12 @@ resource "unifi_dns_policy" "dns_wildcard_local_mousses_xyz" {
   weight             = null
 }
 
-# DNS A record: *.pds.mousses.xyz -> 10.9.20.12.
+# DNS A record: *.pds.mousses.xyz -> 10.9.20.14.
 resource "unifi_dns_policy" "dns_wildcard_pds_mousses_xyz" {
   domain             = "*.pds.mousses.xyz"
   enabled            = true
   ip_address         = null
-  ipv4_address       = "10.9.20.12"
+  ipv4_address       = "10.9.20.14"
   ipv6_address       = null
   mail_server_domain = null
   port               = null
@@ -84,12 +84,12 @@ resource "unifi_dns_policy" "dns_wildcard_pds_mousses_xyz" {
   weight             = null
 }
 
-# DNS A record: bluesky.mousses.xyz -> 10.9.20.12.
+# DNS A record: bluesky.mousses.xyz -> 10.9.20.14.
 resource "unifi_dns_policy" "dns_bluesky_mousses_xyz" {
   domain             = "bluesky.mousses.xyz"
   enabled            = true
   ip_address         = null
-  ipv4_address       = "10.9.20.12"
+  ipv4_address       = "10.9.20.14"
   ipv6_address       = null
   mail_server_domain = null
   port               = null
@@ -105,12 +105,12 @@ resource "unifi_dns_policy" "dns_bluesky_mousses_xyz" {
   weight             = null
 }
 
-# DNS A record: *.bluesky.mousses.xyz -> 10.9.20.12.
+# DNS A record: *.bluesky.mousses.xyz -> 10.9.20.14.
 resource "unifi_dns_policy" "dns_wildcard_bluesky_mousses_xyz" {
   domain             = "*.bluesky.mousses.xyz"
   enabled            = true
   ip_address         = null
-  ipv4_address       = "10.9.20.12"
+  ipv4_address       = "10.9.20.14"
   ipv6_address       = null
   mail_server_domain = null
   port               = null
@@ -327,8 +327,6 @@ resource "unifi_dns_policy" "dns_wildcard_minecraft_mousses_xyz" {
 # kitty, nas, omv, pds, switch, tower) are intentionally omitted: the
 # controller rejects explicit DNS policies that overlap with them.
 locals {
-  pds_ula = "fd00:beef:cafe:1:be24:11ff:febb:f8d5"
-
   static_device_dns = {
     teslacam      = "10.9.20.8"
     aqara-hub     = "10.12.10.146"
@@ -364,61 +362,18 @@ resource "unifi_dns_policy" "static_device" {
   weight             = null
 }
 
-# Local DNS AAAA: bluesky.mousses.xyz -> PDS ULA.
-resource "unifi_dns_policy" "dns_bluesky_mousses_xyz_ipv6" {
-  domain             = "bluesky.${var.domain_name}"
-  enabled            = true
-  ip_address         = null
-  ipv4_address       = null
-  ipv6_address       = local.pds_ula
-  mail_server_domain = null
-  port               = null
-  priority           = null
-  protocol           = null
-  server_domain      = null
-  service            = null
-  site_id            = data.unifi_site.main.id
-  target_domain      = null
-  text               = null
-  ttl_seconds        = 0
-  type               = "AAAA_RECORD"
-  weight             = null
-}
-
-# Local DNS AAAA: *.bluesky.mousses.xyz -> PDS ULA.
-resource "unifi_dns_policy" "dns_wildcard_bluesky_mousses_xyz_ipv6" {
-  domain             = "*.bluesky.${var.domain_name}"
-  enabled            = true
-  ip_address         = null
-  ipv4_address       = null
-  ipv6_address       = local.pds_ula
-  mail_server_domain = null
-  port               = null
-  priority           = null
-  protocol           = null
-  server_domain      = null
-  service            = null
-  site_id            = data.unifi_site.main.id
-  target_domain      = null
-  text               = null
-  ttl_seconds        = 0
-  type               = "AAAA_RECORD"
-  weight             = null
-}
-
 # AAAA counterparts for the manually-defined A records above.
 #
 # The LAN ULA IID encodes the IPv4 address, for example:
 #   10.9.20.1 -> fd00:beef:cafe:1:10:9:20:1
 #
-# Bluesky is omitted because its existing AAAA records point at the PDS's
-# actual SLAAC ULA, which is already reachable by local IPv6 clients.
+# Bluesky and *.pds are omitted because the PDS moved to Kubernetes and the
+# public/local AAAA records were removed in favor of the Traefik IPv4 path.
 locals {
   manual_dns_ipv6 = {
     "*.tower.mousses.xyz"     = "fd00:beef:cafe:1:10:9:20:7"
     "router.mousses.xyz"      = "fd00:beef:cafe:1:10:9:20:1"
     "*.local.mousses.xyz"     = "fd00:beef:cafe:1:10:9:20:2"
-    "*.pds.mousses.xyz"       = "fd00:beef:cafe:1:10:9:20:12"
     "*.redqueen.mousses.xyz"  = "fd00:beef:cafe:1:10:9:20:242"
     "*.omv.mousses.xyz"       = "fd00:beef:cafe:1:10:9:20:14"
     "minecraft.mousses.xyz"   = "fd00:beef:cafe:1:10:9:20:14"
