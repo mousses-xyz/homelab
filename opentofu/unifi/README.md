@@ -49,10 +49,9 @@ provider cannot round-trip its `dhcp_guarding` field, which otherwise causes a
 perpetual diff that cascades into firewall policies referencing it. Built-in
 firewall zones are locked by UniFi and must not be managed as resources.
 
-The `Bluesky` port forward is intentionally unmanaged: it uses
-`pfwd_interface = "all"`, which this provider version cannot represent (it
-accepts only `wan`, `wan2`, or `both`). The Minecraft Java and Bedrock port
-forwards were removed, leaving no managed WAN port forwards.
+The `Bluesky` port forward was removed after the PDS moved to the
+Cloudflare Tunnel. No WAN port forwards remain. The Minecraft Java and Bedrock
+forwards were also removed.
 
 ## LAN IPv6
 
