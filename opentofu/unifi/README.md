@@ -38,8 +38,8 @@ The unit currently manages:
 
 - 3 user-defined networks: `IoT`, `Guest`, `AI`
 - 4 WiFi broadcasts
-- 7 user-defined firewall policies and their ordering
-- 33 DNS policies (A/AAAA records for static-IPv4 and manually-defined names)
+- 6 user-defined firewall policies and 2 orderings
+- 35 DNS policies (A/AAAA records for static-IPv4 and manually-defined names)
 - 7 traffic matching lists
 - 2 port forwards (Minecraft Java and Bedrock)
 - 18 DHCP reservations (MAC → fixed IP)
@@ -67,15 +67,17 @@ legacy Network API):
 - **Client Address Assignment:** SLAAC
 - **Router Advertisement:** enabled, priority high
 
-The delegated prefix is dynamic. The PDS now runs in k3s behind Traefik and uses
-the public IPv4 `A` record. Its public and local AAAA records were removed during
-that migration. The legacy `Bluesky IPv6` firewall policy may remain until a
-separate cleanup; it is no longer needed for the PDS ingress path.
+The delegated prefix is dynamic. The PDS runs in k3s behind Traefik and uses the
+public IPv4 `A` record; its public and local AAAA records were removed during
+that migration. Minecraft's public AAAA records were also removed, but its local
+AAAA records remain for LAN IPv6 clients. The legacy `Bluesky IPv6` firewall
+policy and its External → Internal ordering were removed.
 
 Local AAAA records for the remaining manually-defined names use the VLAN ULA
 prefix with the IPv4 address encoded in the interface identifier, for example
 `router.mousses.xyz` resolves to `10.9.20.1` and
-`fd00:beef:cafe:1:10:9:20:1`.
+`fd00:beef:cafe:1:10:9:20:1`. `omv.mousses.xyz` keeps an explicit A/AAAA pair;
+its AAAA uses the host's EUI-64 SLAAC ULA instead of the encoded convention.
 
 State is stored in S3 at
 `s3://peter-mousses-homelab-tf-state/unifi/terraform.tfstate`.

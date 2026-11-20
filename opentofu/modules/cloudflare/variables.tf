@@ -61,13 +61,3 @@ variable "lab_ipv4_address" {
 	type = string
 	description = "Public IPv4 address of lab"
 }
-
-variable "udr7_wan_1" {
-	type = string
-	description = "UDR7 WAN1 IPv6 address. Not used for service DNS records."
-}
-
-variable "bluesky_public_ipv6" {
-	type = string
-	description = "Legacy Bluesky PDS global IPv6. No longer used after the PDS moved to Kubernetes; retained because the local auto.tfvars still supplies it."
-}

@@ -193,14 +193,14 @@ resource "unifi_dns_policy" "dns_wildcard_omv_mousses_xyz" {
   weight             = null
 }
 
-# OMV migration test: explicit root A/AAAA records.
+# OMV root A/AAAA records.
+#
+# The A record points at Traefik. The AAAA uses OMV's stable SLAAC ULA (EUI-64)
+# rather than the IPv4-encoded convention used for the other manual names.
 #
 # The client-level "Local DNS Record" for OMV must be cleared before applying
-# this, otherwise the controller rejects the A record with
+# the A record, otherwise the controller rejects it with
 # api.dns.policy.validation.overlap-with-local-dns.
-#
-# The AAAA uses OMV's current stable SLAAC ULA (EUI-64), not the IPv4-encoded
-# convention. Revisit the convention after this migration is verified.
 resource "unifi_dns_policy" "dns_omv_mousses_xyz" {
   domain             = "omv.${var.domain_name}"
   enabled            = true
@@ -395,8 +395,10 @@ resource "unifi_dns_policy" "static_device" {
 # The LAN ULA IID encodes the IPv4 address, for example:
 #   10.9.20.1 -> fd00:beef:cafe:1:10:9:20:1
 #
-# Bluesky and *.pds are omitted because the PDS moved to Kubernetes and the
+# Bluesky and *.pds are omitted because the PDS moved to Kubernetes and its
 # public/local AAAA records were removed in favor of the Traefik IPv4 path.
+# Minecraft keeps its local AAAA records even though its public AAAA records
+# were removed.
 locals {
   manual_dns_ipv6 = {
     "*.tower.mousses.xyz"     = "fd00:beef:cafe:1:10:9:20:7"
