@@ -41,7 +41,6 @@ The unit currently manages:
 - 6 user-defined firewall policies and 2 orderings
 - 35 DNS policies (A/AAAA records for static-IPv4 and manually-defined names)
 - 7 traffic matching lists
-- 2 port forwards (Minecraft Java and Bedrock)
 - 18 DHCP reservations (MAC → fixed IP)
 
 The default `LAN` network and all six built-in firewall zones are referenced
@@ -52,7 +51,8 @@ firewall zones are locked by UniFi and must not be managed as resources.
 
 The `Bluesky` port forward is intentionally unmanaged: it uses
 `pfwd_interface = "all"`, which this provider version cannot represent (it
-accepts only `wan`, `wan2`, or `both`).
+accepts only `wan`, `wan2`, or `both`). The Minecraft Java and Bedrock port
+forwards were removed, leaving no managed WAN port forwards.
 
 ## LAN IPv6
 
