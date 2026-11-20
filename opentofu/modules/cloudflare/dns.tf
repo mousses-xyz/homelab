@@ -1,18 +1,26 @@
-resource "cloudflare_dns_record" "bluesky_vps_root_ipv4" {
+# PDS apex is served through the Cloudflare Tunnel. TLS terminates at the
+# Cloudflare edge; cloudflared re-originates to Traefik with SNI
+# bluesky.mousses.xyz.
+resource "cloudflare_dns_record" "tunnel_bluesky" {
 	zone_id = var.cloudflare_zone_id
 	name = "bluesky.${var.domain_name}"
-	type = "A"
-	comment = "Bluesky Kubernetes ingress root DNS record IPv4."
-	content = var.lab_ipv4_address
-	proxied = false
+	type = "CNAME"
+	comment = "Bluesky PDS via Cloudflare Tunnel"
+	content = "${var.cloudflare_tunnel_id}.cfargotunnel.com"
+	proxied = true
 	ttl = 1
 }
-resource "cloudflare_dns_record" "bluesky_vps_wildcard_ipv4" {
+
+# AT Protocol resolves handles with the preferred _atproto DNS TXT method.
+# The public *.bluesky record is intentionally absent: Cloudflare's free
+# Universal SSL does not cover second-level wildcards, and Total TLS excludes
+# tunnel hostnames. Local split-horizon *.bluesky A records remain in UniFi.
+resource "cloudflare_dns_record" "bluesky_handle_txt" {
 	zone_id = var.cloudflare_zone_id
-	name = "*.bluesky.${var.domain_name}"
-	type = "A"
-	comment = "Bluesky Kubernetes ingress wildcard DNS record IPv4."
-	content = var.lab_ipv4_address
+	name = "_atproto.petmouse.bluesky.${var.domain_name}"
+	type = "TXT"
+	comment = "AT Protocol handle petmouse.bluesky.mousses.xyz"
+	content = "did=did:plc:csv4htneuv5pmbep5ivobilv"
 	proxied = false
 	ttl = 1
 }

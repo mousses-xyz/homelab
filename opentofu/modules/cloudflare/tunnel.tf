@@ -68,6 +68,19 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "cloudflare_tunnel_ho
 				}
 			},
 			{
+				# Public PDS. Do not attach Access: federation must be reachable
+				# without interactive authentication. cloudflared targets Traefik
+				# so the PDS NetworkPolicy still only admits the ingress controller.
+				hostname = "bluesky.${var.domain_name}"
+				service = "https://traefik.kube-system.svc.cluster.local:443"
+				origin_request = {
+					# Traefik selects the PDS certificate by SNI and routes on the
+					# original hostname.
+					origin_server_name = "bluesky.${var.domain_name}"
+					http_host_header   = "bluesky.${var.domain_name}"
+				}
+			},
+			{
 				service = "http_status:404"
 			}
 		]
