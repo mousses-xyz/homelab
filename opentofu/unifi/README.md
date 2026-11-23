@@ -39,7 +39,7 @@ The unit currently manages:
 - 3 user-defined networks: `IoT`, `Guest`, `AI`
 - 4 WiFi broadcasts
 - 6 user-defined firewall policies and 2 orderings
-- 35 DNS policies (A/AAAA records for static-IPv4 and manually-defined names)
+- 45 DNS policies (A/AAAA records for static-IPv4 and manually-defined names)
 - 7 traffic matching lists
 - 18 DHCP reservations (MAC → fixed IP)
 
@@ -95,3 +95,11 @@ State is stored in S3 at
 - `pds.mousses.xyz` is now an explicit static record pointing at Traefik. Clear
   the old PDS client's built-in Local DNS Record before applying, or the
   controller rejects the explicit record as an overlap.
+- `nas`, `switch`, `dns`, `kitty`, `dock`, `tower`, `ap`, `pi4gb`, `printer`,
+  `homeassistant` and `omv` are being migrated from client-level Local DNS
+  Records to explicit DNS policies. Clear each client-level record in the UI
+  before applying. The `teslacam.mousses.xyx` and `mimecraft.mousses.xyz`
+  records are typos; delete them instead of recreating them.
+- These host records are A-only. LAN uses SLAAC, and the hosts either have no
+  ULA or use a privacy/EUI-64 address that is not stable. Only
+  `omv.mousses.xyz` has an explicit AAAA record.

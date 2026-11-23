@@ -348,9 +348,10 @@ resource "unifi_dns_policy" "dns_wildcard_minecraft_mousses_xyz" {
 
 # Local DNS A records for devices with a static IPv4 DHCP reservation.
 #
-# Names already defined in UniFi's built-in local DNS (dns, homeassistant,
-# kitty, nas, omv, switch, tower) are intentionally omitted: the controller
-# rejects explicit DNS policies that overlap with them.
+# The client-level Local DNS Records for nas, switch, dns, kitty, dock, tower,
+# ap, pi4gb, printer and homeassistant are defined in client_local_dns above.
+# The teslacam and minecraft-vm client-level records are superseded by the
+# explicit names below; delete the typo records instead of recreating them.
 #
 # pds.mousses.xyz is defined explicitly above; its former client-level local
 # DNS record must be cleared on the old PDS client before applying.
@@ -370,6 +371,59 @@ locals {
 
 resource "unifi_dns_policy" "static_device" {
   for_each = local.static_device_dns
+
+  domain             = "${each.key}.${var.domain_name}"
+  enabled            = true
+  ip_address         = null
+  ipv4_address       = each.value
+  ipv6_address       = null
+  mail_server_domain = null
+  port               = null
+  priority           = null
+  protocol           = null
+  server_domain      = null
+  service            = null
+  site_id            = data.unifi_site.main.id
+  target_domain      = null
+  text               = null
+  ttl_seconds        = 0
+  type               = "A_RECORD"
+  weight             = null
+}
+
+# Names currently served by UniFi client-level "Local DNS Records".
+#
+# These are being migrated to explicit DNS policies so they are versioned and
+# survive a client being forgotten and re-adopted. Clear the matching
+# client-level record in the UniFi UI before applying: the controller rejects
+# an explicit policy that overlaps one with
+# api.dns.policy.validation.overlap-with-local-dns.
+#
+# teslacam and minecraft-vm already exist in static_device_dns above. Their
+# client-level records contain typos (teslacam.mousses.xyx and
+# mimecraft.mousses.xyz); delete those instead of recreating them.
+#
+# AAAA records are intentionally not added here. LAN uses SLAAC, and these
+# hosts either have no ULA or use an EUI-64/privacy address that is not stable
+# across interfaces. omv.mousses.xyz is the exception and has its own AAAA
+# record below.
+locals {
+  client_local_dns = {
+    nas           = "10.9.20.2"
+    switch        = "10.9.20.3"
+    dns           = "10.9.20.4"
+    kitty         = "10.9.20.5"
+    dock          = "10.9.20.6"
+    tower         = "10.9.20.7"
+    ap            = "10.9.20.9"
+    pi4gb         = "10.9.20.10"
+    printer       = "10.12.10.2"
+    homeassistant = "10.12.10.4"
+  }
+}
+
+resource "unifi_dns_policy" "client_local_dns" {
+  for_each = local.client_local_dns
 
   domain             = "${each.key}.${var.domain_name}"
   enabled            = true
